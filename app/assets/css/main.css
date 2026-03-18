@@ -1,0 +1,257 @@
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui" {
+    prefix: "app-";
+    themes: light, dark --prefersdark, cupcake, bumblebee, emerald, synthwave, retro, cyberpunk, halloween, aqua, fantasy, luxury, dracula, autumn, business, night, coffee, winter, caramellatte, abyss, silk --default ;
+}
+
+body, html, #__nuxt {
+    height: 100%;
+    width: 100%;
+}
+/* 
+::-webkit-scrollbar {
+    width: 8px;
+
+    &-track {
+        background: var(--color-base-100);
+    }
+
+    &-thumb {
+        border-radius: 50px;
+        background: var(--color-accent), 10%;
+
+        &:hover {
+            background: var(--color-base-300);
+        }
+    }
+} */
+/* 
+* scrollbar-color{
+    color: var(--color-base-100) var(--color-accent);
+} */
+
+/* ::-webkit-scrollbar-button {
+    height: 0;
+    width: 0;
+    display: none;
+}  */
+
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    font-synthesis: none;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+    outline: 2px solid transparent;
+    outline-offset: 0;
+}
+
+::selection {
+    background: color-mix(in oklch, currentColor 20%, transparent);
+}
+
+/* Respect user preferences */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        /* scroll-behavior: auto !important; */
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in forwards;
+}
+.fade-in-skip-btn {
+    opacity: 0;
+    cursor: default;
+    animation: fadeInSkip 0.5s 2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInSkip {
+    from {
+        opacity: 0;
+        display: auto;
+        cursor: pointer;
+    }
+    to {
+        opacity: 1;
+        display: auto;
+        cursor: pointer;
+    }
+}
+
+@plugin "daisyui/theme" {
+    name: "ice";
+    default: false;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(98% 0.019 200.873);
+    --color-base-200: oklch(95% 0.045 203.388);
+    --color-base-300: oklch(91% 0.08 205.041);
+    --color-base-content: oklch(39% 0.07 227.392);
+    --color-primary: oklch(80% 0.105 251.813);
+    --color-primary-content: oklch(27% 0.077 45.635);
+    --color-secondary: oklch(0% 0 0);
+    --color-secondary-content: oklch(100% 0 0);
+    --color-accent: oklch(81% 0.111 293.571);
+    --color-accent-content: oklch(28% 0.141 291.089);
+    --color-neutral: oklch(39% 0.07 227.392);
+    --color-neutral-content: oklch(98% 0.019 200.873);
+    --color-info: oklch(58% 0.158 241.966);
+    --color-info-content: oklch(97% 0.013 236.62);
+    --color-success: oklch(60% 0.118 184.704);
+    --color-success-content: oklch(98% 0.014 180.72);
+    --color-warning: oklch(64% 0.222 41.116);
+    --color-warning-content: oklch(98% 0.016 73.684);
+    --color-error: oklch(57% 0.245 27.325);
+    --color-error-content: oklch(97% 0.013 17.38);
+    --radius-selector: 2rem;
+    --radius-field: 0.5rem;
+    --radius-field: 0.5rem;
+    --radius-box: 0rem;
+    --size-selector: 0.1875rem;
+    --size-field: 0.21875rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+[data-theme="ice"] {
+    .app-btn, .btn {
+        @apply glass;
+    }
+
+    .theme__btn {
+        border: none !important;
+    }
+}
+
+@plugin "daisyui/theme" {
+    name: "donald";
+    default: false;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(0.571 0.222 20.087);
+    --color-base-200: oklch(0.501 0.222 20.087);
+    --color-base-300: oklch(0.451 0.202 20.087);
+    --color-base-content: oklch(87% 0.169 91.605);
+    --color-primary: oklch(0.401 0.322 20.087);
+    --color-primary-content: oklch(97% 0.014 343.198);
+    --color-secondary: oklch(69% 0.17 162.48);
+    --color-secondary-content: oklch(97% 0.021 166.113);
+    --color-accent: oklch(82% 0.189 84.429);
+    --color-accent-content: oklch(98% 0.031 120.757);
+    --color-neutral: oklch(21% 0.006 285.885);
+    --color-neutral-content: oklch(98% 0 0);
+    --color-info: oklch(70% 0.165 254.624);
+    --color-info-content: oklch(30% 0.056 229.695);
+    --color-success: oklch(79% 0.209 151.711);
+    --color-success-content: oklch(27% 0.072 132.109);
+    --color-warning: oklch(85% 0.199 91.936);
+    --color-warning-content: oklch(28% 0.066 53.813);
+    --color-error: oklch(80% 0.114 19.571);
+    --color-error-content: oklch(25% 0.092 26.042);
+    --radius-selector: 0.25rem;
+    --radius-field: 2rem;
+    --radius-box: 1rem;
+    --size-selector: 0.3125rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+}
+
+/* @plugin "daisyui/theme" {
+    name: "light";
+    default: false;
+    prefersdark: false;
+    color-scheme: "light";
+    --color-base-100: oklch(100% 0 0);
+    --color-base-200: oklch(98% 0 0);
+    --color-base-300: oklch(95% 0 0);
+    --color-base-content: oklch(21% 0.006 285.885);
+    --color-primary: oklch(45% 0.24 277.023);
+    --color-primary-content: oklch(93% 0.034 272.788);
+    --color-secondary: oklch(65% 0.241 354.308);
+    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(95% 0.052 163.051);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.25rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+} */
+
+/* DARK */
+
+/* @plugin "daisyui/theme" {
+    name: "dark";
+    default: false;
+    prefersdark: false;
+    color-scheme: "dark";
+    --color-base-100: oklch(25.33% 0.016 252.42);
+    --color-base-200: oklch(23.26% 0.014 253.1);
+    --color-base-300: oklch(21.15% 0.012 254.09);
+    --color-base-content: oklch(97.807% 0.029 256.847);
+    --color-primary: oklch(58% 0.233 277.117);
+    --color-primary-content: oklch(96% 0.018 272.314);
+    --color-secondary: oklch(65% 0.241 354.308);
+    --color-secondary-content: oklch(94% 0.028 342.258);
+    --color-accent: oklch(77% 0.152 181.912);
+    --color-accent-content: oklch(38% 0.063 188.416);
+    --color-neutral: oklch(14% 0.005 285.823);
+    --color-neutral-content: oklch(92% 0.004 286.32);
+    --color-info: oklch(74% 0.16 232.661);
+    --color-info-content: oklch(29% 0.066 243.157);
+    --color-success: oklch(76% 0.177 163.223);
+    --color-success-content: oklch(37% 0.077 168.94);
+    --color-warning: oklch(82% 0.189 84.429);
+    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-error: oklch(71% 0.194 13.428);
+    --color-error-content: oklch(27% 0.105 12.094);
+    --radius-selector: 0.5rem;
+    --radius-field: 0.25rem;
+    --radius-box: 0.5rem;
+    --size-selector: 0.1875rem;
+    --size-field: 0.25rem;
+    --border: 1px;
+    --depth: 1;
+    --noise: 0;
+} */

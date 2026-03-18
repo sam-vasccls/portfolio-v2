@@ -1,0 +1,36 @@
+{
+    "nuxt.isNuxtApp": true,
+    // "workbench.colorCustomizations": {
+    //     "activityBar.activeBackground": "#8e82c9",
+    //     "activityBar.background": "#8e82c9",
+    //     "activityBar.foreground": "#15202b",
+    //     "activityBar.inactiveForeground": "#15202b99",
+    //     "activityBarBadge.background": "#e2c3bc",
+    //     "activityBarBadge.foreground": "#15202b",
+    //     "commandCenter.border": "#e7e7e799",
+    //     "sash.hoverBorder": "#8e82c9",
+    //     "statusBar.background": "#6e5fb9",
+    //     "statusBar.foreground": "#e7e7e7",
+    //     "statusBarItem.hoverBackground": "#8e82c9",
+    //     "statusBarItem.remoteBackground": "#6e5fb9",
+    //     "statusBarItem.remoteForeground": "#e7e7e7",
+    //     "titleBar.activeBackground": "#6e5fb9",
+    //     "titleBar.activeForeground": "#e7e7e7",
+    //     "titleBar.inactiveBackground": "#6e5fb999",
+    //     "titleBar.inactiveForeground": "#e7e7e799"
+    // },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit",
+        "source.fixAll.stylelint": "explicit",
+    },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": null,
+    "stylelint.validate": [
+        "css",
+        "scss",
+        "vue"
+    ],
+    "[css]": {
+        "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    },
+}
