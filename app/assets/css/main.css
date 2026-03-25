@@ -1,4 +1,7 @@
 
+/* Fonts: Cinzel, JetBrains Mono, Google Sans, Montserrat, Noto Sans, Prata */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Prata&display=swap');
+
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -6,38 +9,10 @@
     prefix: "app-";
     themes: light, dark --prefersdark, cupcake, bumblebee, emerald, synthwave, retro, cyberpunk, halloween, aqua, fantasy, luxury, dracula, autumn, business, night, coffee, winter, caramellatte, abyss, silk --default ;
 }
-
 body, html, #__nuxt {
     height: 100%;
     width: 100%;
 }
-/* 
-::-webkit-scrollbar {
-    width: 8px;
-
-    &-track {
-        background: var(--color-base-100);
-    }
-
-    &-thumb {
-        border-radius: 50px;
-        background: var(--color-accent), 10%;
-
-        &:hover {
-            background: var(--color-base-300);
-        }
-    }
-} */
-/* 
-* scrollbar-color{
-    color: var(--color-base-100) var(--color-accent);
-} */
-
-/* ::-webkit-scrollbar-button {
-    height: 0;
-    width: 0;
-    display: none;
-}  */
 
 html {
     -webkit-text-size-adjust: 100%;
@@ -51,11 +26,59 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: 'Montserrat', 'Noto Sans', 'Google Sans', sans-serif;
 }
 
 button {
     outline: 2px solid transparent;
     outline-offset: 0;
+}
+
+/* Color Tones */
+:root {
+    --lighter-10: color-mix(in srgb, var(--color-primary), white 10%);
+    --lighter-20: color-mix(in srgb, var(--color-primary), white 20%);
+    --lighter-30: color-mix(in srgb, var(--color-primary), white 30%);
+    --lighter-40: color-mix(in srgb, var(--color-primary), white 40%);
+    --lighter-50: color-mix(in srgb, var(--color-primary), white 50%);
+    --lighter-80: color-mix(in srgb, var(--color-primary), white 80%);
+    
+    --darker-10: color-mix(in srgb, var(--color-primary), black 10%);
+    --darker-20: color-mix(in srgb, var(--color-primary), black 20%);
+    --darker-30: color-mix(in srgb, var(--color-primary), black 30%);
+    --darker-40: color-mix(in srgb, var(--color-primary), black 40%);
+    --darker-50: color-mix(in srgb, var(--color-primary), black 50%);
+    --darker-80: color-mix(in srgb, var(--color-primary), black 80%);
+    --darker-90: color-mix(in srgb, var(--color-primary), black 90%);
+}
+
+.span-primary {
+    position: relative;
+    display: inline-block;
+    color: var(--color-primary);
+}
+
+.span-primary::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+    height: 100%;
+    background-color: color-mix(as srgb, var(--color-primary), white 40%);
+}
+
+.span-secondary {
+    position: relative;
+    display: inline-block;
+    color: var(--color-secondary);
+}
+.span-accent {
+    position: relative;
+    display: inline-block;
+    color: var(--color-accent);
 }
 
 ::selection {
@@ -68,7 +91,7 @@ button {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        /* scroll-behavior: auto !important; */
+        scroll-behavior: smooth !important;
     }
 }
 
@@ -103,6 +126,17 @@ button {
     }
 }
 
+@keyframes phoneShow {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 @plugin "daisyui/theme" {
     name: "ice";
     default: false;
@@ -129,7 +163,6 @@ button {
     --color-error: oklch(57% 0.245 27.325);
     --color-error-content: oklch(97% 0.013 17.38);
     --radius-selector: 2rem;
-    --radius-field: 0.5rem;
     --radius-field: 0.5rem;
     --radius-box: 0rem;
     --size-selector: 0.1875rem;

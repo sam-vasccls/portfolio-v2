@@ -1,11 +1,11 @@
 <template>
-    <div class="relative theme" title="Change Theme">
-        <button ref="themeBtn" class="app-btn theme__btn cursor-pointer app-btn-ghost" @click.stop="toggleThemeOptions">
+    <div class="relative theme" title="Change Theme" @click="toggleThemeOptions">
+        <button ref="themeBtn" class="app-btn theme__btn cursor-pointer">
             <div ref="selectedThemeRef" class="theme__btn__square">
                 <AppThemeColorScheme :colors="activeColors" />
             </div>
-            <Icon v-if="isThemeOpen" name="material-symbols:close-small-outline-rounded" size="16" />
-            <Icon v-else name="material-symbols:keyboard-arrow-down-rounded" size="16" />
+            <Icon v-if="isThemeOpen" class="btn-icon" name="material-symbols:close-small-outline-rounded" size="16" @click.prevent />
+            <Icon v-else class="btn-icon" name="material-symbols:keyboard-arrow-down-rounded" size="16" @click.prevent />
         </button>
 
         <TransitionGroup name="theme-options" tag="div">
@@ -81,16 +81,28 @@ watch(activeColors, updateTheme)
 
 <style lang="scss" scoped>
 .theme {
-    position: relative;
+    position: absolute;
+    z-index: 5;
+    top: 1rem;
+    right: 1rem;
     display: flex;
     width: 100px;
-    justify-self: flex-end;
+    border: none;
+
+    & .btn-icon {
+        user-select: none;
+        pointer-events: none;
+        color: var(--color-primary-content);
+    }
     
     &__btn {
+        background-color: var(--lighter-20);
         display: flex;
         transition: 400ms;
+        border: none;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
         padding-inline: 0.5rem;
         gap: 0.4rem;
         border-radius: var(--radius-box);
@@ -144,9 +156,9 @@ watch(activeColors, updateTheme)
 
         &__option {
             font-size: 0.75rem;
-            cursor: pointer;
             display: flex;
             font-weight: 400;
+            cursor: pointer;
             align-items: center;
             border-radius: var(--radius-box);
             padding: 0.2rem 0.3rem;

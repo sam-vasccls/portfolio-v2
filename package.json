@@ -24,13 +24,13 @@
         "sass": "^1.62.0",
         "tailwindcss": "^4.1.18",
         "theme-change": "^2.5.0",
-        "typescript": "^5.9.3",
         "vue": "^3.5.27",
         "vue-router": "^4.6.4"
     },
     "devDependencies": {
         "@iconify-json/material-symbols": "^1.2.60",
-        "typescript": "^5.8.3"
+        "typescript": "^5.9.3",
+        "vue-tsc": "^3.2.6"
     },
     "resolutions": {
         "postcss": "^8.3.11"

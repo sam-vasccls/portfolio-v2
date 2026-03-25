@@ -40,7 +40,6 @@ export function useTheme() {
         activeColors.value = colors[theme] as string[]
 
         if (darkThemes.includes(activeTheme.value)) {
-            console.log('Updating isDarkTheme', isDarkTheme.value)
             isDarkTheme.value = true
         } else {
             isDarkTheme.value = false
