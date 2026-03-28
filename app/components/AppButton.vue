@@ -171,6 +171,7 @@ defineProps<{
 .btn-wrapper {
     padding-inline: 2rem;
     transform: scale(1.4);
+
     // focus outline
     &:focus-within button:focus-visible {
         outline: 2px solid var(--color-base-content);

@@ -1,6 +1,6 @@
 <template>
     <div class="relative theme" title="Change Theme" @click="toggleThemeOptions">
-        <button ref="themeBtn" class="app-btn theme__btn cursor-pointer">
+        <button ref="themeBtn" :class="['app-btn theme__btn cursor-pointer', isThemeOpen && 'shiny-border']">
             <div ref="selectedThemeRef" class="theme__btn__square">
                 <AppThemeColorScheme :colors="activeColors" />
             </div>
@@ -81,14 +81,13 @@ watch(activeColors, updateTheme)
 
 <style lang="scss" scoped>
 .theme {
-    position: absolute;
+    position: fixed;
     z-index: 5;
     top: 1rem;
     right: 1rem;
     display: flex;
-    width: 100px;
-    border: none;
-
+    width: max-content;
+    
     & .btn-icon {
         user-select: none;
         pointer-events: none;
@@ -103,9 +102,16 @@ watch(activeColors, updateTheme)
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        padding-inline: 0.5rem;
+        padding: 1.3rem 0.5rem;
         gap: 0.4rem;
         border-radius: var(--radius-box);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary), transparent 60%);
+
+        &.shiny-border {
+            box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary), transparent 60%),
+            0 0 22px -4px color-mix(in srgb, var(--color-primary), transparent 20%);
+        }
 
         &__square {
             border-radius: 12px;
@@ -124,8 +130,8 @@ watch(activeColors, updateTheme)
 
     &__options {
         position: absolute;
-        top: 4rem;
-        left: -12rem;
+        top: 3.5rem;
+        left: -13rem;
         max-height: 500px;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -141,7 +147,7 @@ watch(activeColors, updateTheme)
         user-select: none;
 
         @media (min-width: 376px) {
-            left: -9.5rem;
+            left: -10.5rem;
         }
 
         &__title {

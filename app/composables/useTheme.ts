@@ -29,7 +29,6 @@ export function useTheme() {
         caramellatte: ['oklch(90% 0.076 70.697)', 'oklch(0% 0 0)', 'oklch(22.45% 0.075 37.85)', 'oklch(46.44% 0.111 37.85)', 'oklch(98% 0.016 73.684)'],
         abyss: ['oklch(92% 0.2653 125)', 'oklch(83.27% 0.0764 298.3)', 'oklch(43% 0 0)', 'oklch(30% 0.08 209)', 'oklch(20% 0.08 209)'],
         silk: ['oklch(23.27% 0.0249 284.3)', 'oklch(23.27% 0.0249 284.3)', 'oklch(23.27% 0.0249 284.3)', 'oklch(20% 0 0)', 'oklch(97% 0.0035 67.78)'],
-        donald: ['oklch(0.401 0.322 20.087)', 'oklch(69% 0.17 162.48)', 'oklch(82% 0.189 84.429)', 'oklch(21% 0.006 285.885)', 'oklch(0.571 0.222 20.087)']
     } as Record<string, string[]>
 
     const applyTheme = (theme: string) => {

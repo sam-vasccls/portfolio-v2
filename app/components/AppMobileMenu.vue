@@ -62,8 +62,6 @@
 </template>
 
 <script setup>
-const { sentiment, makeSad, makeHappy } = useEmotionRegulator()
-
 const isSad = computed(() => sentiment.value < 49)
 const isHappy = computed(() => sentiment.value > 100)
 </script>

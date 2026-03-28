@@ -1,13 +1,12 @@
 <template>
-    <div class="layout-wrapper" :data-theme="activeTheme" :style="{ filter: `saturate(${sentiment}%)` }">
-        <AppThemeButton />
+    <div class="layout-wrapper" :data-theme="activeTheme">
         <slot />
+        <AppThemeButton />
     </div>
 </template>
 
 <script setup lang="ts">
 const { activeTheme } = useTheme()
-const { sentiment } = useEmotionRegulator()
 
 onMounted(() => {
     const htmlPage = document.getElementsByTagName('html')[0] as HTMLElement
@@ -26,5 +25,9 @@ onMounted(() => {
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
+}
+
+.layout-content {
+    display: contents;
 }
 </style>
