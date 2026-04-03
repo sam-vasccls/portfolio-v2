@@ -7,17 +7,15 @@
                 </div>
                 <div class="card__info">
                     <div><label>Name:</label><div class="card__line"/><p>Sam Vasconcelos</p></div>
-                    <div><label>Role:</label><div class="card__line"/><p>UI/UX Advocate</p></div>
-                    <div><label>Logic:</label><div class="card__line"/><p>115 points</p></div>
-                    <div><label>Creativity:</label><div class="card__line"/><p>85 points</p></div>
+                    <div><label>Role:</label><div class="card__line"/><p>JavaScript Wizard</p></div>
+                    <div><label>Background:</label><div class="card__line"/><p>Web software development</p></div>
+                    <div><label>Strength:</label><div class="card__line"/><p>Logic-driven interfaces</p></div>
+                    <div><label>Currently:</label><div class="card__line"/><p>Bridging UX and Complexity</p></div>
                     <div><label>Fun:</label><div class="card__line"/><p>+9000 points</p></div>
                     <div class="card__medals">
                         <p>Acquired Medals:</p>
                         <ul>
-                            <li><Icon name="noto:military-medal" size="24" /> CSS Wizard</li>
-                            <li><Icon name="noto:military-medal" size="24" /> JS Ninja</li>
-                            <li><Icon name="noto:military-medal" size="24" /> API Devourer</li>
-                            <li><Icon name="noto:military-medal" size="24" /> Lone Wolf</li>
+                            <li><Icon name="noto:military-medal" size="24" /> Lone Wolf (2 Projects, 1 year)</li>
                         </ul>
                     </div>
                 </div>
@@ -52,6 +50,7 @@ function resetCardPosition() {
     if(heroCard.value) {
         heroCard.value.style.setProperty('--position-x', '0deg')
         heroCard.value.style.setProperty('--position-y', '0deg')
+        heroCard.value.style.setProperty('--hue-rotate', '0')
     }
 }
 
@@ -70,6 +69,7 @@ function setCardPosition(e) {
     heroCard.value.style.setProperty('--position-y', (0.5) * (50 - positionX) + 'deg')
     heroCard.value.style.setProperty('--mouse-x', positionX + '%')
     heroCard.value.style.setProperty('--mouse-y', positionY + '%')
+    heroCard.value.style.setProperty('--hue-rotate', positionX * 3.6)
 }
 </script>
 
@@ -95,6 +95,11 @@ function setCardPosition(e) {
     animation: spin 2s cubic-bezier(0,2.01,.52,.84) forwards;
     transform: rotateX(var(--position-x, 0deg)) rotateY(var(--position-y, 0deg));
     transition: transform 400ms ease-out;
+
+    @media (max-width: 355px) {
+        height: 650px;
+        transform: scale(0.9);
+    }
     
     & * {
         pointer-events: none;
@@ -106,11 +111,11 @@ function setCardPosition(e) {
         position: absolute;
         inset: 50%;
         transform: translateX(-50%);
-        top: 25px;
-        width: 150px;
-        height: 150px;
+        top: 30px;
+        width: 175px;
+        height: 175px;
         border-radius: 150px;
-        background: radial-gradient(circle, var(--darker-40), transparent);
+        background: radial-gradient(circle, var(--darker-40), transparent 90%);
         filter: blur(4px);
         opacity: 0;
         pointer-events: none;
@@ -131,6 +136,9 @@ function setCardPosition(e) {
         opacity: 0.8;
     }
     & .card {
+        box-shadow: 0 0 64px -18px var(--color-primary);
+        box-decoration-break: slice;
+
         &__img, &__info {
             transform: translateZ(50px);
             text-shadow: 0px 0px 5px rgba(0,0,0,0.1);
@@ -140,20 +148,53 @@ function setCardPosition(e) {
 
 .card--front {
     transform: rotateY(0deg);
+    background-image: url('/public/imgs/card-image.svg');
+    background-size: 25px 25px;
+    background-position: 2% 2%;
+    background-repeat: repeat;
+    background-blend-mode: color;
     backface-visibility: hidden;
 
-    // mouse hover shine highlight
+    // mouse hover shine highlight — spotlight radial masked to SVG pattern shapes only
     &::before {
         content: '';
         position: absolute;
         inset: 0;
         border-radius: var(--radius-box);
-        background: radial-gradient(
-            circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            color-mix(in srgb, var(--lighter-80), transparent 50%) 0%,
-            color-mix(in srgb, var(--lighter-80), transparent 90%) 40%,
-            transparent 70%
-        );
+        background:
+            // white hot-spot right under cursor
+            radial-gradient(
+                circle 80px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(255, 255, 255, 0.90) 35%,
+                transparent 70%
+            ),
+            // rainbow halo fading outward from cursor
+            conic-gradient(
+                from calc(var(--hue-rotate, 0) * 1deg) at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                hsl(0,   100%, 65%),
+                hsl(60,  100%, 65%),
+                hsl(120, 100%, 75%),
+                hsl(120, 100%, 100%),
+                hsl(120, 0%, 70%),
+                hsl(180, 100%, 65%),
+                hsl(240, 100%, 70%),
+                hsl(300, 100%, 80%),
+                hsl(360, 100%, 65%)
+            );
+        // intersect: spotlight radial × SVG shapes = only shapes inside the light cone
+        -webkit-mask-image:
+            radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%),
+            url('/imgs/card-image.svg');
+        -webkit-mask-size: auto, 50px 50px;
+        -webkit-mask-repeat: no-repeat, repeat;
+        -webkit-mask-composite: source-in;
+        mask-image:
+            radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%),
+            url('/imgs/card-image.svg');
+        mask-size: auto, 50px 50px;
+        mask-repeat: no-repeat, repeat;
+        mask-composite: intersect;
         opacity: 0;
         pointer-events: none;
         transition: opacity 300ms ease-out;
@@ -168,8 +209,9 @@ function setCardPosition(e) {
         padding: 8px;
         border-radius: calc(var(--radius-box) + 8px);
         background: radial-gradient(
-            circle 180px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            var(--color-primary),
+            circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            var(--lighter-20) 15%,
+            var(--color-primary) 40%,
             transparent 60%
         );
         opacity: 0;
@@ -184,6 +226,12 @@ function setCardPosition(e) {
             linear-gradient(#fff 0 0) content-box,
             linear-gradient(#fff 0 0);
         mask-composite: exclude;
+    }
+
+    &:hover {
+        &::after {
+            opacity: 0.95;
+        }
     }
 }
 
@@ -203,7 +251,7 @@ function setCardPosition(e) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 1rem;
     background-color: var(--color-base-300);
     padding: 1.5rem 1rem;
     border-radius: var(--radius-box);
@@ -211,13 +259,15 @@ function setCardPosition(e) {
     box-shadow: 0 0 0 8px rgba(0,0,0,0.1);
     height: 100%;
     transform-style: preserve-3d;
+    transition: box-shadow 300ms ease-out;
 
     &__img {
-        overflow: hidden;
         display: flex;
         justify-content: center;
+        z-index: 4;
         align-items: center;
-        height: 120px;
+        height: 140px;
+        min-height: 120px;
         border-radius: 50%;
         border: 4px solid var(--color-primary);
         margin-bottom: 1rem;
@@ -225,13 +275,14 @@ function setCardPosition(e) {
         overflow: hidden;
         box-shadow: 0px 0px 12px 2px var(--darker-10);
         transition: transform 400ms ease-out;
+        transform: translateZ(2px);
         pointer-events: none;
 
         // Weak glow around the image (primary color)
         &::after {
             content: '';
             position: absolute;
-            height: 120px;
+            height: 140px;
             inset: 0;
             background: radial-gradient(circle, transparent, var(--color-primary));
             opacity: 0.2;
@@ -253,6 +304,7 @@ function setCardPosition(e) {
         flex-direction: column;
         gap: 1rem;
         font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
         transition: transform 400ms ease-out;
         pointer-events: none;
 
@@ -320,10 +372,11 @@ function setCardPosition(e) {
 
 @keyframes spin {
     0% {
-        transform: rotateY(-1800deg) scale(0.5);
+        transform: rotateY(-1800deg);
     }
+    
     100% {
-        transform: rotateY(0deg) scale(1);
+        transform: rotateY(0deg);
     }
 }
 </style>

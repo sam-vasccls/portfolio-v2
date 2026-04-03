@@ -98,11 +98,70 @@ button {
     }
 }
 
+/* Custom Cursors */
+html, body {
+    cursor: url('/cursor/cur1054.cur'), default;
+}
+
+a, button, img[src] [role="button"], label[for], select,
+input[type="submit"], input[type="button"], input[type="reset"],
+input[type="checkbox"], input[type="radio"], summary,
+[tabindex]:not([tabindex="-1"]) {
+    cursor: url('/cursor/cur1049.cur'), pointer !important;
+}
+
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="url"], input[type="number"],
+textarea, [contenteditable="true"] {
+    cursor: url('/cursor/cur1047.cur'), text;
+}
+
+:disabled, [disabled], [aria-disabled="true"] {
+    cursor: url('/cursor/cur1050.cur'), not-allowed;
+}
+
+[aria-busy="true"] {
+    cursor: url('/cursor/cur1052.ani'), wait;
+}
+
+.cursor-wait {
+    cursor: url('/cursor/cur1053.ani'), wait;
+}
+
+.cursor-progress {
+    cursor: url('/cursor/cur1053.ani'), progress;
+}
+
+.cursor-move {
+    cursor: url('/cursor/cur1045.cur'), move;
+}
+
+.cursor-help {
+    cursor: url('/cursor/cur1051.cur'), help;
+}
+
+.cursor-ns-resize {
+    cursor: url('/cursor/cur1046.cur'), ns-resize;
+}
+
+.cursor-ew-resize {
+    cursor: url('/cursor/cur1047.cur'), ew-resize;
+}
+
+.cursor-nwse-resize {
+    cursor: url('/cursor/cur1048.cur'), nwse-resize;
+}
+
+.cursor-nesw-resize {
+    cursor: url('/cursor/cur1049.cur'), nesw-resize;
+}
+/* animations */
 .fade-in {
     animation: fadeIn 0.5s ease-in forwards;
 }
 .fade-in-skip-btn {
     opacity: 0;
+    pointer-events: none;
     cursor: default;
     animation: fadeInSkip 0.5s 2s ease-in forwards;
 }
@@ -119,12 +178,12 @@ button {
 @keyframes fadeInSkip {
     from {
         opacity: 0;
-        display: auto;
-        cursor: pointer;
+        pointer-events: none;
+        cursor: default;
     }
     to {
         opacity: 1;
-        display: auto;
+        pointer-events: all;
         cursor: pointer;
     }
 }

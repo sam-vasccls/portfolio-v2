@@ -12,9 +12,16 @@
                     </h1>
                     <h2 ref="heroH2" class="py-6 text-left text-lg hero-enter">Developer focused on clean architecture, practical solutions, professionalism, amazing experience and continuous learning!</h2>
                     <div ref="heroBtn" class="section-hero__btn hero-enter">
-                        <AppButton :fancy-btn="windowWidth > phoneBreakpoint" class="header-btn" @click="scrollToContent">
-                            Let's Begin!
+                        <AppButton
+                            :fancy-btn="windowWidth > phoneBreakpoint"
+                            class="header-btn"
+                            @mouseenter="onBalloonHover"
+                            @mouseleave="onBalloonLeave"
+                            @click="scrollToContent"
+                        >
+                            Let's Begin!!
                         </AppButton>
+                        <BalloonTooltip text="cool" class="balloon balloon--cool" />
                     </div>
                 </div>
                 <HeroCard />
@@ -29,7 +36,7 @@
         <section class="section section-about">
             <div class="about-marquee" aria-hidden="true">
                 <div class="about-marquee__track">
-                    <span v-for="word in ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT']" :key="word + Math.random()" class="about-marquee__word">
+                    <span v-for="(word, index) in actionsList" :key="index" class="about-marquee__word">
                         {{ word }} <span class="about-marquee__dot">·</span>
                     </span>
                 </div>
@@ -37,16 +44,16 @@
 
             <div class="about-content">
                 <h2 class="section-title about-title">About Me</h2>
-                <div class="about-text">
-                    <p>
-                        I specialize in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
+                <div class="about-content__inner text-left">
+                    <p class="about-text">
+                        My passion lies in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
                         <span class="span-primary font-bold">clean architecture</span> with pixel-perfect interfaces.
-                        From concept to deployment, I focus on performance, accessibility, and code that scales — ensuring every project
+                        From concept to deployment, I focus on the UX, design, performance, accessibility, and code that scales, ensuring every project
                         meets professional standards and delivers real value.
                     </p>
-                    <p>
-                        Beyond day-to-day development, I continuously invest in mastering modern frameworks, backend architecture,
-                        and infrastructure tooling. I believe that <span class="span-secondary font-bold">strong fundamentals</span>
+                    <p  class="about-text">
+                        Beyond day-to-day development, I continuously invest in studying code, architecture, modern frameworks,
+                        and day-to-day tooling. I believe that a <span class="span-secondary font-bold">solid foundation</span>
                         and thoughtful engineering are what separate good software from great software.
                     </p>
                 </div>
@@ -126,7 +133,7 @@
                     </div>
                     <div class="contact-form__field">
                         <label for="contact-message">Message</label>
-                        <textarea id="contact-message" rows="5" placeholder="Tell me about your project..." />
+                        <textarea id="contact-message" rows="5" placeholder="Tell me about your ideas..." />
                     </div>
                     <button type="submit" class="contact-form__submit">
                         <Icon name="material-symbols:send-rounded" size="20" />
@@ -150,19 +157,26 @@
                         </div>
                     </div>
                     <div class="contact-info__socials">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <a href="https://github.com/sam-vasccls" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                             <img src="/icons/github.svg" alt="GitHub" :class="['contact-info__social-icon', isDarkTheme && 'icon-light']">
                         </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <a href="https://www.linkedin.com/in/sam-vasconcelos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <Icon name="mdi:linkedin" size="32" />
                         </a>
-                        <a href="https://gitlab.com" target="_blank" rel="noopener noreferrer" aria-label="GitLab">
-                            <img src="/icons/gitlab.svg" alt="GitLab" class="contact-info__social-icon">
+                        <a href="https://www.instagram.com/sam.vasccls" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <Icon name="logos:instagram-icon" size="28" :class="[isDarkTheme && 'icon-light']" />
                         </a>
                     </div>
                 </div>
             </div>
         </section>
+
+<footer class="footer">
+            <p class="footer__text">
+                © {{ currentYear }} · Developed with <Icon name="noto:red-heart" size="16" class="footer__heart" /> by
+                <span class="footer__name">Sam Dev</span>
+            </p>
+        </footer>
 
         <!-- <Teleport to="body">
             <AppMobileMenu />
@@ -172,6 +186,9 @@
 
 <script setup>
 import { debounce } from 'lodash'
+import { animate, createTimer, text, utils, cubicBezier } from "animejs";
+
+const currentYear = new Date().getFullYear()
 
 const { isDarkTheme } = useTheme() // Assuming you have a theme composable that provides this reactive variable
 const { $gsap: gsap } = useNuxtApp()
@@ -179,6 +196,7 @@ const { $gsap: gsap } = useNuxtApp()
 const windowWidth = ref(1000)
 const handleResize = debounce(() => { windowWidth.value = window.innerWidth }, 300)
 const phoneBreakpoint = 768
+const actionsList = ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT']
 
 // Hero entrance refs
 const heroH3 = ref(null)
@@ -188,22 +206,22 @@ const heroBtn = ref(null)
 const scrollIndicator = ref(null)
 
 const techs = [
-    { name: 'TypeScript',   icon: '/icons/ts.svg',          description: 'Typed superset of JavaScript that catches errors at compile time and improves code maintainability at scale.' },
-    { name: 'JavaScript',   icon: '/icons/js.svg',          description: 'The language of the web — powering interactivity, logic, and dynamic behavior across every modern browser.' },
-    { name: 'HTML',         icon: '/icons/html.svg',        description: 'The semantic backbone of every web page — structuring content for accessibility, SEO, and cross-platform reach.' },
-    { name: 'CSS',          icon: '/icons/css.svg',         description: 'Stylesheet language for visual design — layouts, animations, responsive breakpoints, and theming.' },
-    { name: 'Sass',         icon: '/icons/sass.svg',        description: 'CSS preprocessor with variables, nesting, mixins, and functions for scalable, maintainable stylesheets.' },
-    { name: 'Figma',        icon: '/icons/figma.svg',       description: 'Collaborative design tool for prototyping interfaces, creating design systems, and developer handoff.' },
+    { name: 'TypeScript', icon: '/icons/ts.svg', description: 'Typed superset of JavaScript that catches errors at compile time and improves code maintainability at scale.' },
+    { name: 'JavaScript', icon: '/icons/js.svg', description: 'The language of the web — powering interactivity, logic, and dynamic behavior across every modern browser.' },
+    { name: 'HTML', icon: '/icons/html.svg', description: 'The semantic backbone of every web page — structuring content for accessibility, SEO, and cross-platform reach.' },
+    { name: 'CSS', icon: '/icons/css.svg', description: 'Stylesheet language for visual design — layouts, animations, responsive breakpoints, and theming.' },
+    { name: 'Sass', icon: '/icons/sass.svg', description: 'CSS preprocessor with variables, nesting, mixins, and functions for scalable, maintainable stylesheets.' },
+    { name: 'Figma', icon: '/icons/figma.svg', description: 'Collaborative design tool for prototyping interfaces, creating design systems, and developer handoff.' },
     { name: 'Tailwind CSS', icon: '/icons/tailwindcss.svg', description: 'Utility-first CSS framework for rapidly building custom designs without leaving your HTML.' },
-    { name: 'Vite',         icon: '/icons/vite.svg',       description: 'Next-generation frontend tooling for fast development and optimized builds.' },
-    { name: 'Vue',          icon: '/icons/vuejs.svg',       description: 'Progressive JavaScript framework for building modern, reactive user interfaces with a component-driven architecture.' },
-    { name: 'Nuxt',         icon: '/icons/nuxtjs.svg',      description: 'Full-stack Vue framework with SSR, routing, and a powerful module ecosystem for production-grade web applications.' },
-    { name: 'Node.js',      icon: '/icons/nodejs.svg',      description: 'Server-side JavaScript runtime powering APIs, tooling, and full-stack applications with a vast package ecosystem.' },
-    { name: 'Express.js',   icon: '/icons/express.svg',     description: 'Flexible Node.js web application framework providing a robust set of features for web and mobile applications.' },
-    { name: 'Git',          icon: '/icons/git.svg',         description: 'Distributed version control system for tracking changes, collaborating, and maintaining code history.' },
-    { name: 'GitHub',       icon: '/icons/github.svg',      description: 'Platform for hosting repositories, code review, CI/CD pipelines, and open-source collaboration.' },
-    { name: 'GitLab',       icon: '/icons/gitlab.svg',      description: 'DevOps platform combining Git hosting, CI/CD, issue tracking, and container registry in one tool.' },
-    { name: 'Pinia Store',  icon: '/icons/pinia.svg',       description: 'State management library for VueJS and NuxtJS applications, providing an intuitive API for managing global state.' },
+    { name: 'Vite', icon: '/icons/vite.svg', description: 'Next-generation frontend tooling for fast development and optimized builds.' },
+    { name: 'Vue', icon: '/icons/vuejs.svg', description: 'Progressive JavaScript framework for building modern, reactive user interfaces with a component-driven architecture.' },
+    { name: 'Nuxt', icon: '/icons/nuxtjs.svg', description: 'Full-stack Vue framework with SSR, routing, and a powerful module ecosystem for production-grade web applications.' },
+    { name: 'Node.js', icon: '/icons/nodejs.svg', description: 'Server-side JavaScript runtime powering APIs, tooling, and full-stack applications with a vast package ecosystem.' },
+    { name: 'Express.js', icon: '/icons/express.svg', description: 'Flexible Node.js web application framework providing a robust set of features for web and mobile applications.' },
+    { name: 'Git', icon: '/icons/git.svg', description: 'Distributed version control system for tracking changes, collaborating, and maintaining code history.' },
+    { name: 'GitHub', icon: '/icons/github.svg', description: 'Platform for hosting repositories, code review, CI/CD pipelines, and open-source collaboration.' },
+    { name: 'GitLab', icon: '/icons/gitlab.svg', description: 'DevOps platform combining Git hosting, CI/CD, issue tracking, and container registry in one tool.' },
+    { name: 'Pinia Store', icon: '/icons/pinia.svg', description: 'State management library for VueJS and NuxtJS applications, providing an intuitive API for managing global state.' },
 ]
 
 const activeTechIndex = ref(0)
@@ -239,6 +257,61 @@ function selectTech(index) {
     }
 }
 
+let balloonTimer = null
+let balloonHideTimeout = null
+const HOVER_TIMER = 6000
+const MOUSE_LEAVE_TIMER = 1500
+
+function animateBalloonOut(el) {
+    clearTimeout(balloonHideTimeout)
+    balloonHideTimeout = null
+    gsap.killTweensOf(el)
+    gsap.to(el, { opacity: 0, y: 20, scale: 0.7, filter: 'blur(20px)', duration: 0.5, ease: 'back.in(1.7)' })
+}
+
+const balloonCounter = shallowRef(0)
+function onBalloonHover() {
+    if (balloonTimer) return
+
+    if(balloonCounter.value > 0) return
+    balloonCounter.value++
+
+    console.log('hello')
+
+    balloonTimer = setTimeout(() => {
+        const balloon = document.querySelector('.balloon--cool')
+        if (!balloon) return
+        gsap.fromTo(
+            balloon,
+            { opacity: 0, y: 30, x: -20, scale: 0.7, filter: 'blur(20px)' },
+            {
+                opacity: 1,
+                y: 0,
+                x: 0,
+                scale: 1,
+                filter: 'blur(0px)',
+                duration: 0.7,
+                ease: 'back.out(1.7)',
+                onComplete: () => {
+                    balloonHideTimeout = setTimeout(() => animateBalloonOut(balloon), MOUSE_LEAVE_TIMER)
+                }
+            }
+        )
+    }, HOVER_TIMER)
+}
+
+function onBalloonLeave() {
+    clearTimeout(balloonTimer)
+    balloonTimer = null
+    const el = document.querySelector('.balloon--cool')
+    if (el && parseFloat(gsap.getProperty(el, 'opacity')) > 0) {
+        animateBalloonOut(el)
+    } else {
+        clearTimeout(balloonHideTimeout)
+        balloonHideTimeout = null
+    }
+}
+
 // Parallax on tech section
 function onTechParallax(e) {
     if (!techSectionRef.value) return
@@ -271,18 +344,18 @@ const services = [
     { icon: 'material-symbols:devices-rounded', title: 'Responsive Web Design', desc: 'Ensuring pixel-perfect layouts across every screen size — mobile, tablet, and desktop.' },
 ]
 
-if (import.meta.client) {
-    window.addEventListener('resize', handleResize)
-}
-
 onMounted(() => {
+    if (import.meta.client) {
+        window.addEventListener('resize', handleResize)
+    }
+    
     handleResize()
 
     // Staggered hero entrance
     const heroEls = [heroH3.value, heroH1.value, heroH2.value, heroBtn.value].filter(Boolean)
     gsap.fromTo(heroEls,
-        { opacity: 0, y: 30, z: 50, filter: 'blur(40px)' },
-        { opacity: 1, y: 0, z: 0, filter: 'blur(0px)', duration: 0.7, stagger: 0.25, ease: 'power2.out', delay: 0.3 }
+        { opacity: 0, x: -60, z: 50, filter: 'blur(40px)' },
+        { opacity: 1, x: 0, z: 0, filter: 'blur(0px)', duration: 1, stagger: 0.45, ease: 'power3.out', delay: 0.4 }
     )
 
     // Fade in scroll indicator after hero entrance
@@ -294,7 +367,7 @@ onMounted(() => {
     }
 
     // Hide scroll indicator on first scroll
-    const hideOnScroll = () => {
+    function hideOnScroll() {
         if (!scrollIndicator.value) return
         gsap.to(scrollIndicator.value, { opacity: 0, duration: 0.3, onComplete: () => {
             if (scrollIndicator.value) scrollIndicator.value.style.display = 'none'
@@ -302,6 +375,48 @@ onMounted(() => {
         window.removeEventListener('scroll', hideOnScroll)
     }
     window.addEventListener('scroll', hideOnScroll, { passive: true })
+
+    // About Section Text Animation
+    const radius = 40;
+    const animations = [];
+    const chars = [];
+    document.querySelectorAll('.about-text').forEach(p => {
+        const { chars: pChars } = text.splitText(p, { chars: true });
+        chars.push(...pChars);
+    });
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const animateChar = ($c, i) => {
+        const anim = animations[i];
+        if (anim && anim.progress < .5) return;
+        const rect = $c.getBoundingClientRect();
+        const dx = pointerX - (rect.left + (rect.width * .5));
+        const dy = pointerY - (rect.top + (rect.height * .5));
+        const distanceSquared = dx * dx + dy * dy;
+        if (distanceSquared <= radius * radius) {
+            animations[i] = animate($c, {
+                keyframes: [
+                    {
+                        x: utils.random(-radius, radius),
+                        y: utils.random(-radius, radius),
+                        ease: cubicBezier(.17,.67,.41,1.65)
+                    },
+                    {
+                        x: 0, y: 0,
+                        ease: cubicBezier(.71,1.72,.37,1.25), duration: 1000
+                    }
+                ],
+            });
+        }
+    }
+
+    document.addEventListener('pointermove', (e) => {
+        pointerX = e.clientX;
+        pointerY = e.clientY;
+    });
+
+    createTimer({ onUpdate: () => chars.forEach(animateChar) });
 })
 
 onBeforeUnmount(() => {
@@ -310,10 +425,23 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped lang="scss">
+.balloon {
+    position: absolute;
 
+    &--cool {
+        opacity: 0;
+        top: -3rem;
+        right: -8rem;
+    }
+    
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
 .icon-light {
     filter: invert(100%) sepia(100%) grayscale(100%) brightness(150%);
 }
+
 .main {
     position: relative;
     display: flex;
@@ -478,11 +606,12 @@ onBeforeUnmount(() => {
     }
 
     &__btn {
-        width: 100%;
+        position: relative;
+        width: max-content;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 1.5rem;
+        margin: 1.5rem auto 0;
 
         @media(max-width: 768px) {
             position: absolute;
@@ -519,15 +648,7 @@ onBeforeUnmount(() => {
 
 @keyframes orbFloat {
     0%, 100% { translate: 0 0; }
-    50%      { translate: 0 -20px; }
-}
-
-.phone {
-    position: absolute;
-    opacity: 0;
-    animation: phoneShow linear forwards;
-    animation-timeline: view();
-    animation-range: entry 20% cover 50%;
+    50%      { translate: 20px -35px; }
 }
 
 /* ═══════════ ABOUT SECTION ═══════════ */
@@ -587,27 +708,30 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 5rem 2rem;
     gap: 2rem;
     max-width: 860px;
     width: 100%;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: color-mix(in srgb, var(--color-base-content), transparent 15%);
+
+    &__inner :deep(span) {
+        display: inline-block;
+    }
+}
+
+.about-text:first-of-type {
+    padding-bottom: 2rem;
 }
 
 .about-title {
-    align-self: flex-start;
+    align-self: center;
 
     @media (max-width: 768px) {
         align-self: center;
     }
-}
-
-.about-text {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: color-mix(in srgb, var(--color-base-content), transparent 15%);
 }
 
 /* ═══════════ SHARED SECTION ELEMENTS ═══════════ */
@@ -840,7 +964,9 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.75rem;
+    height: 260px;
+    min-height: 260px;
+    gap: 1rem;
     padding: 1.75rem;
     border-radius: var(--radius-box);
     background: var(--color-base-300);
@@ -965,16 +1091,59 @@ onBeforeUnmount(() => {
         cursor: pointer;
         transition: all 0.25s ease;
         align-self: flex-start;
+        transform: translateY(12px);
 
         &:hover {
-            transform: translateY(-2px);
+            transform: translateY(8px);
             box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary), transparent 50%);
         }
 
         &:active {
-            transform: translateY(0);
+            transform: translateY(14px);
         }
     }
+}
+
+/* ═══════════ FOOTER ═══════════ */
+.footer {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-base-100);
+    border-top: 1px solid color-mix(in srgb, var(--color-base-content), transparent 90%);
+
+    &__text {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        color: color-mix(in srgb, var(--color-base-content), transparent 50%);
+        margin: 0;
+    }
+
+    &__heart {
+        animation: heartbeat 1.4s ease-in-out infinite;
+        display: inline-flex;
+    }
+
+    &__name {
+        background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%      { transform: scale(1.25); }
+    28%      { transform: scale(1); }
+    42%      { transform: scale(1.15); }
+    56%      { transform: scale(1); }
 }
 
 .contact-info {
@@ -1008,6 +1177,10 @@ onBeforeUnmount(() => {
         align-items: center;
         padding-top: 1rem;
 
+        @media(max-width: 768px) {
+            justify-content: center;
+        }
+
         & a {
             display: flex;
             align-items: center;
@@ -1021,7 +1194,7 @@ onBeforeUnmount(() => {
 
             &:hover {
                 background: var(--color-primary);
-                color: var(--color-primary-content);
+                color: var(--color-primary-content) !important;
                 transform: translateY(-3px);
                 box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary), transparent 50%);
             }
@@ -1029,8 +1202,8 @@ onBeforeUnmount(() => {
     }
 
     &__social-icon {
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         object-fit: contain;
     }
 }
