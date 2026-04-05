@@ -4,7 +4,7 @@ export function useTheme() {
     const isThemeApplied = useState<boolean>('isThemeApplied', () => false)
     const isDarkTheme = useState<boolean>('isDarkTheme', () => false)
 
-    const darkThemes = ['dark', 'synthwave', 'halloween', 'luxury', 'dracula', 'business', 'night', 'coffe', 'abyss']
+    const darkThemes = ['dark', 'synthwave', 'halloween', 'luxury', 'dracula', 'business', 'night', 'coffee', 'abyss']
 
     const colors = {
         light: ['oklch(45% 0.24 277.023)', 'oklch(65% 0.241 354.308)', 'oklch(77% 0.152 181.912)', 'oklch(14% 0.005 285.823)', 'oklch(100% 0 0)'],
@@ -37,12 +37,7 @@ export function useTheme() {
             localStorage.setItem('theme', theme)
         }
         activeColors.value = colors[theme] as string[]
-
-        if (darkThemes.includes(activeTheme.value)) {
-            isDarkTheme.value = true
-        } else {
-            isDarkTheme.value = false
-        }
+        isDarkTheme.value = darkThemes.includes(activeTheme.value)
     }
 
     const initThemeFromStorage = () => {
@@ -52,9 +47,7 @@ export function useTheme() {
             activeTheme.value = stored
             activeColors.value = colors[stored] as string[]
 
-            if (darkThemes.includes(activeTheme.value)) {
-                isDarkTheme.value = true
-            }
+            isDarkTheme.value = darkThemes.includes(activeTheme.value)
         } else {
             applyTheme('dark')
         }

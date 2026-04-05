@@ -148,11 +148,11 @@ function setCardPosition(e) {
 
 .card--front {
     transform: rotateY(0deg);
-    background-image: url('/public/imgs/card-image.svg');
+    background-image: url('/public/imgs/code-background.svg');
     background-size: 25px 25px;
     background-position: 2% 2%;
     background-repeat: repeat;
-    background-blend-mode: color;
+    background-blend-mode: screen;
     backface-visibility: hidden;
 
     // mouse hover shine highlight — spotlight radial masked to SVG pattern shapes only
@@ -185,13 +185,13 @@ function setCardPosition(e) {
         // intersect: spotlight radial × SVG shapes = only shapes inside the light cone
         -webkit-mask-image:
             radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%),
-            url('/imgs/card-image.svg');
+            url('/imgs/code-background.svg');
         -webkit-mask-size: auto, 50px 50px;
         -webkit-mask-repeat: no-repeat, repeat;
         -webkit-mask-composite: source-in;
         mask-image:
             radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), black 0%, transparent 100%),
-            url('/imgs/card-image.svg');
+            url('/imgs/code-background.svg');
         mask-size: auto, 50px 50px;
         mask-repeat: no-repeat, repeat;
         mask-composite: intersect;

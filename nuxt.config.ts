@@ -4,6 +4,10 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     pages: true,
 
+    runtimeConfig: {
+        API_KEY: process.env.RESEND_API_KEY,
+    },
+
     modules: [
         '@nuxt/eslint',
         '@nuxt/image',
@@ -11,5 +15,9 @@ export default defineNuxtConfig({
         '@pinia/nuxt'
     ],
 
-    css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css', 'vue-toastification/dist/index.css'],
+
+    build: {
+        transpile: ['vue-toastification']
+    }
 })

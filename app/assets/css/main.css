@@ -199,6 +199,21 @@ textarea, [contenteditable="true"] {
     }
 }
 
+@keyframes send {
+    0%, 100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+    51% {
+        opacity: 0;
+        transform: translateX(-24px)
+    }
+}
+
 @plugin "daisyui/theme" {
     name: "ice";
     default: false;

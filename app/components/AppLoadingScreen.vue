@@ -6,7 +6,7 @@
 
         <div v-else class="fade-in w-full h-full flex items-center justify-center flex-col gap-6 px-2 sm:px-4">
             <div class="font-bold w-full text-center">
-                <span class="skeleton skeleton-text text-lg">Loading App (Not Really)</span>
+                <span class="skeleton skeleton-text text-lg">Loading App <span v-if="!cookie">(not really)</span></span>
             </div>
     
             <div ref="terminalEl" class="terminal w-full sm:w-2.5 md:w-1/2 2xl:w-1/3">

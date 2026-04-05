@@ -4,6 +4,20 @@ import { MorphSVGPlugin } from "gsap/MorphSVGPlugin"
 import { Observer } from "gsap/Observer"
 import { SplitText } from "gsap/SplitText"
 
+declare module '#app' {
+    interface NuxtApp {
+        $gsap: typeof gsap
+        $observer: typeof Observer
+    }
+}
+
+declare module 'vue' {
+    interface ComponentCustomProperties {
+        $gsap: typeof gsap
+        $observer: typeof Observer
+    }
+}
+
 /*
  * defineNuxtPlugin() is a Nuxt utility that registers a plugin which runs once
  * when the application boots — before any page or component renders.

@@ -32,11 +32,14 @@
             </div>
         </header>
 
-        <!-- ═══════════ MARQUEE + ABOUT ═══════════ -->
+        <!-- ========== MARQUEE + ABOUT ========== -->
         <section class="section section-about">
             <div class="about-marquee" aria-hidden="true">
                 <div class="about-marquee__track">
-                    <span v-for="(word, index) in actionsList" :key="index" class="about-marquee__word">
+                    <span v-for="(word, index) in actionsList" :key="'a' + index" class="about-marquee__word">
+                        {{ word }} <span class="about-marquee__dot">·</span>
+                    </span>
+                    <span v-for="(word, index) in actionsList" :key="'b' + index" class="about-marquee__word">
                         {{ word }} <span class="about-marquee__dot">·</span>
                     </span>
                 </div>
@@ -45,22 +48,31 @@
             <div class="about-content">
                 <h2 class="section-title about-title">About Me</h2>
                 <div class="about-content__inner text-left">
-                    <p class="about-text">
+                    <p class="about-text hidden">
                         My passion lies in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
                         <span class="span-primary font-bold">clean architecture</span> with pixel-perfect interfaces.
                         From concept to deployment, I focus on the UX, design, performance, accessibility, and code that scales, ensuring every project
                         meets professional standards and delivers real value.
                     </p>
-                    <p  class="about-text">
+                    <p  class="about-text hidden">
                         Beyond day-to-day development, I continuously invest in studying code, architecture, modern frameworks,
                         and day-to-day tooling. I believe that a <span class="span-secondary font-bold">solid foundation</span>
                         and thoughtful engineering are what separate good software from great software.
+                    </p>
+                    <p class="about-text">
+                        I build interfaces where design and engineering meet: strong focus on clean code, thoughtful UX, and attention to the details that most people skip.
+                        My background is heavier on web software than static sites, which means I think in systems: state, data flow, component architecture, 
+                        overall structure and organization. 
+                    </p>
+                    <p class="about-text">
+                        I care about how things work as much as how they look.
+                        And I take the craft seriously. Always studying, always refining, always looking for the next problem worth solving.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- ═══════════ TECH STACK — GSAP FLIP ═══════════ -->
+        <!-- ========== TECH STACK — GSAP FLIP ========== -->
         <section ref="techSection" class="section section-tech" @mousemove="onTechParallax" @mouseleave="resetTechParallax">
             <h2 class="section-title">Tech Stack</h2>
             <p class="section-subtitle">Technologies I work with daily</p>
@@ -100,7 +112,7 @@
             </div>
         </section>
 
-        <!-- ═══════════ SERVICES ═══════════ -->
+        <!-- ========== SERVICES ========== -->
         <section class="section section-services">
             <h2 class="section-title">Services</h2>
             <p class="section-subtitle">Activities I'm proficient and comfortable working on</p>
@@ -116,64 +128,15 @@
             </div>
         </section>
 
-        <!-- ═══════════ CONTACT ═══════════ -->
-        <section class="section section-contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Let's build something together</p>
-
-            <div class="contact-grid">
-                <form class="contact-form" @submit.prevent>
-                    <div class="contact-form__field">
-                        <label for="contact-name">Name</label>
-                        <input id="contact-name" type="text" placeholder="Your name" autocomplete="name">
-                    </div>
-                    <div class="contact-form__field">
-                        <label for="contact-email">Email</label>
-                        <input id="contact-email" type="email" placeholder="you@email.com" autocomplete="email">
-                    </div>
-                    <div class="contact-form__field">
-                        <label for="contact-message">Message</label>
-                        <textarea id="contact-message" rows="5" placeholder="Tell me about your ideas..." />
-                    </div>
-                    <button type="submit" class="contact-form__submit">
-                        <Icon name="material-symbols:send-rounded" size="20" />
-                        Send Message
-                    </button>
-                </form>
-
-                <div class="contact-info">
-                    <div class="contact-info__block">
-                        <Icon name="material-symbols:mail-outline-rounded" size="24" />
-                        <div>
-                            <h4>Email</h4>
-                            <p>sam.vasconcelos.dev@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-info__block">
-                        <Icon name="material-symbols:location-on-outline-rounded" size="24" />
-                        <div>
-                            <h4>Location</h4>
-                            <p>Available remotely, worldwide</p>
-                        </div>
-                    </div>
-                    <div class="contact-info__socials">
-                        <a href="https://github.com/sam-vasccls" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                            <img src="/icons/github.svg" alt="GitHub" :class="['contact-info__social-icon', isDarkTheme && 'icon-light']">
-                        </a>
-                        <a href="https://www.linkedin.com/in/sam-vasconcelos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                            <Icon name="mdi:linkedin" size="32" />
-                        </a>
-                        <a href="https://www.instagram.com/sam.vasccls" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                            <Icon name="logos:instagram-icon" size="28" :class="[isDarkTheme && 'icon-light']" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- ========== CONTACT ========== -->
+        <ContactSection />
 
 <footer class="footer">
             <p class="footer__text">
-                © {{ currentYear }} · Developed with <Icon name="noto:red-heart" size="16" class="footer__heart" /> by
+                © {{ currentYear }} · Developed with 
+                <!-- <Icon name="noto:red-heart" size="16" class="footer__heart" />  -->
+                <Icon name="material-symbols:favorite-rounded" size="16" class="footer__heart" /> 
+                by
                 <span class="footer__name">Sam Dev</span>
             </p>
         </footer>
@@ -184,7 +147,7 @@
     </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { debounce } from 'lodash'
 import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
@@ -196,14 +159,14 @@ const { $gsap: gsap } = useNuxtApp()
 const windowWidth = ref(1000)
 const handleResize = debounce(() => { windowWidth.value = window.innerWidth }, 300)
 const phoneBreakpoint = 768
-const actionsList = ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'REPEAT']
+const actionsList = ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT']
 
 // Hero entrance refs
 const heroH3 = ref(null)
 const heroH1 = ref(null)
 const heroH2 = ref(null)
 const heroBtn = ref(null)
-const scrollIndicator = ref(null)
+const scrollIndicator = ref<HTMLDivElement | null>(null)
 
 const techs = [
     { name: 'TypeScript', icon: '/icons/ts.svg', description: 'Typed superset of JavaScript that catches errors at compile time and improves code maintainability at scale.' },
@@ -225,13 +188,13 @@ const techs = [
 ]
 
 const activeTechIndex = ref(0)
-const activeTech = computed(() => techs[activeTechIndex.value])
+const activeTech = computed(() => techs[activeTechIndex.value]!)
 
-const techSection = ref(null)
+const techSection = ref<HTMLDivElement | null>(null)
 const techSectionRef = ref(null)
 const techMainIcon = ref(null)
 
-function selectTech(index) {
+function selectTech(index: number) {
     if (index === activeTechIndex.value) return
 
     // Animate the main icon out, swap, animate in
@@ -257,13 +220,13 @@ function selectTech(index) {
     }
 }
 
-let balloonTimer = null
-let balloonHideTimeout = null
-const HOVER_TIMER = 6000
+let balloonTimer: ReturnType<typeof setTimeout> | null = null
+let balloonHideTimeout: ReturnType<typeof setTimeout> | null = null
+const HOVER_TIMER = 15000
 const MOUSE_LEAVE_TIMER = 1500
 
-function animateBalloonOut(el) {
-    clearTimeout(balloonHideTimeout)
+function animateBalloonOut(el: Element) {
+    clearTimeout(balloonHideTimeout as ReturnType<typeof setTimeout>)
     balloonHideTimeout = null
     gsap.killTweensOf(el)
     gsap.to(el, { opacity: 0, y: 20, scale: 0.7, filter: 'blur(20px)', duration: 0.5, ease: 'back.in(1.7)' })
@@ -293,7 +256,7 @@ function onBalloonHover() {
                 duration: 0.7,
                 ease: 'back.out(1.7)',
                 onComplete: () => {
-                    balloonHideTimeout = setTimeout(() => animateBalloonOut(balloon), MOUSE_LEAVE_TIMER)
+                    balloonHideTimeout = setTimeout(() => animateBalloonOut(balloon as HTMLElement), MOUSE_LEAVE_TIMER)
                 }
             }
         )
@@ -301,23 +264,23 @@ function onBalloonHover() {
 }
 
 function onBalloonLeave() {
-    clearTimeout(balloonTimer)
+    clearTimeout(balloonTimer as ReturnType<typeof setTimeout>)
     balloonTimer = null
     const el = document.querySelector('.balloon--cool')
-    if (el && parseFloat(gsap.getProperty(el, 'opacity')) > 0) {
+    if (el && Number(gsap.getProperty(el, 'opacity')) > 0) {
         animateBalloonOut(el)
     } else {
-        clearTimeout(balloonHideTimeout)
+        clearTimeout(balloonHideTimeout as ReturnType<typeof setTimeout>)
         balloonHideTimeout = null
     }
 }
 
 // Parallax on tech section
-function onTechParallax(e) {
+function onTechParallax(event: MouseEvent) {
     if (!techSectionRef.value) return
-    const rect = techSection.value.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20
+    const rect = techSection.value!.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 20
+    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 20
     gsap.to(techSectionRef.value, {
         x: x,
         y: y,
@@ -336,12 +299,12 @@ function scrollToContent() {
 }
 
 const services = [
-    { icon: 'material-symbols:code-rounded', title: 'Frontend Development', desc: 'Building fast, accessible, and responsive interfaces with Vue, Nuxt, and modern JavaScript.' },
+    { icon: 'material-symbols:code-rounded', title: 'Frontend Development', desc: 'Building fast, accessible, and responsive interfaces with Vue, Nuxt, and Typescript.' },
     { icon: 'material-symbols:design-services-rounded', title: 'UI/UX Design', desc: 'Designing intuitive user experiences with Figma — from wireframes to high-fidelity prototypes.' },
     { icon: 'material-symbols:stacks-rounded', title: 'Full-Stack Development', desc: 'End-to-end application development including APIs, databases, and server-side rendering.' },
     { icon: 'material-symbols:api-rounded', title: 'API Integration', desc: 'Connecting frontends to REST and GraphQL APIs with proper error handling and type safety.' },
     { icon: 'material-symbols:speed-rounded', title: 'Performance Optimization', desc: 'Auditing and improving Core Web Vitals, bundle sizes, and runtime performance.' },
-    { icon: 'material-symbols:devices-rounded', title: 'Responsive Web Design', desc: 'Ensuring pixel-perfect layouts across every screen size — mobile, tablet, and desktop.' },
+    // { icon: 'material-symbols:accessibility-rounded', title: 'Accessibility', desc: 'Building to WCAG standards — semantic HTML, keyboard navigation, and screen reader support.' }
 ]
 
 onMounted(() => {
@@ -355,7 +318,7 @@ onMounted(() => {
     const heroEls = [heroH3.value, heroH1.value, heroH2.value, heroBtn.value].filter(Boolean)
     gsap.fromTo(heroEls,
         { opacity: 0, x: -60, z: 50, filter: 'blur(40px)' },
-        { opacity: 1, x: 0, z: 0, filter: 'blur(0px)', duration: 1, stagger: 0.45, ease: 'power3.out', delay: 0.4 }
+        { opacity: 1, x: 0, z: 0, filter: 'blur(0px)', duration: 1, stagger: 0.45, ease: 'power3.out', delay: 2 }
     )
 
     // Fade in scroll indicator after hero entrance
@@ -378,16 +341,16 @@ onMounted(() => {
 
     // About Section Text Animation
     const radius = 40;
-    const animations = [];
-    const chars = [];
+    const animations: ReturnType<typeof animate>[] = [];
+    const chars: HTMLElement[] = [];
     document.querySelectorAll('.about-text').forEach(p => {
-        const { chars: pChars } = text.splitText(p, { chars: true });
+        const { chars: pChars } = text.splitText(p as HTMLElement, { chars: true });
         chars.push(...pChars);
     });
     let pointerX = 0;
     let pointerY = 0;
 
-    const animateChar = ($c, i) => {
+    const animateChar = ($c: HTMLElement, i: number) => {
         const anim = animations[i];
         if (anim && anim.progress < .5) return;
         const rect = $c.getBoundingClientRect();
@@ -438,6 +401,9 @@ onBeforeUnmount(() => {
         display: none;
     }
 }
+.icon-dark {
+    color: #000;
+}
 .icon-light {
     filter: invert(100%) sepia(100%) grayscale(100%) brightness(150%);
 }
@@ -452,7 +418,7 @@ onBeforeUnmount(() => {
     width: 100%;
 }
 
-/* ═══════════ HERO SECTION ═══════════ */
+/* ========== HERO SECTION ========== */
 .hero-enter {
     opacity: 0;
 }
@@ -493,7 +459,7 @@ onBeforeUnmount(() => {
         filter: blur(110px);
         opacity: 0.2;
         pointer-events: none;
-        animation: orbFloat 12s ease-in-out infinite;
+        animation: orbFloat 6s ease-in-out infinite;
     }
 
     &::before {
@@ -511,7 +477,7 @@ onBeforeUnmount(() => {
         filter: blur(110px);
         opacity: 0.2;
         pointer-events: none;
-        animation: orbFloat 16s ease-in-out infinite reverse;
+        animation: orbFloat 8s ease-in-out infinite reverse;
     }
 
     &__grid {
@@ -647,11 +613,11 @@ onBeforeUnmount(() => {
 }
 
 @keyframes orbFloat {
-    0%, 100% { translate: 0 0; }
-    50%      { translate: 20px -35px; }
+    0%, 100% { transform: translate(0, 0); }
+    50%      { transform: translate(-200px, 135px); }
 }
 
-/* ═══════════ ABOUT SECTION ═══════════ */
+/* ========== ABOUT SECTION ========== */
 .section-about {
     min-height: 80vh;
     background-color: var(--color-base-200);
@@ -659,44 +625,63 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: center;
     overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -4rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 14rem;
+        height: 14rem;
+        background: var(--color-accent);
+        filter: blur(100px);
+        opacity: 0.15;
+        pointer-events: none;
+    }
 }
 
 .about-marquee {
     width: 100%;
     padding: 2.5rem 0;
     overflow: hidden;
+    white-space: nowrap;
     border-top: 1px solid color-mix(in srgb, var(--color-base-content), transparent 88%);
     border-bottom: 1px solid color-mix(in srgb, var(--color-base-content), transparent 88%);
     mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-
 }
 
 .about-marquee__track {
     display: flex;
-    gap: 0;
+    gap: 1rem;
     width: max-content;
-    animation: marqueeScroll 22s linear infinite;
-    will-change: transform;
+    animation: marqueeScroll 60s linear infinite;
 }
 
 .about-marquee__word {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
     font-size: 2.5rem;
     font-weight: 800;
     font-family: 'Montserrat', sans-serif;
     letter-spacing: 0.05em;
     color: color-mix(in srgb, var(--color-base-content), transparent 60%);
     white-space: nowrap;
-    padding: 0 1.25rem;
+    width: calc(max-content + 1rem);
     transition: color 0.3s;
-}
-.about-marquee__word:hover {
-    color: var(--color-primary);
-}
 
+    &:hover {
+        color: var(--color-primary);
+    }
+}
 .about-marquee__dot {
     color: var(--color-primary);
     opacity: 0.6;
+    transform: translate(1px, -1px);
+    text-align: center;
 }
 
 @keyframes marqueeScroll {
@@ -722,7 +707,7 @@ onBeforeUnmount(() => {
     }
 }
 
-.about-text:first-of-type {
+.about-text {
     padding-bottom: 2rem;
 }
 
@@ -734,7 +719,7 @@ onBeforeUnmount(() => {
     }
 }
 
-/* ═══════════ SHARED SECTION ELEMENTS ═══════════ */
+/* ========== SHARED SECTION ELEMENTS ========== */
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
@@ -755,7 +740,7 @@ onBeforeUnmount(() => {
     margin-bottom: 3rem;
 }
 
-/* ═══════════ SECTION LAYOUT BASE ═══════════ */
+/* ========== SECTION LAYOUT BASE ========== */
 .section {
     position: relative;
     width: 100%;
@@ -768,10 +753,10 @@ onBeforeUnmount(() => {
     flex-direction: column;
     align-items: center;
     padding: 5rem 2rem;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
-/* ═══════════ TECH STACK SECTION ═══════════ */
+/* ========== TECH STACK SECTION ========== */
 .section-tech {
     background-color: var(--color-base-100);
 
@@ -926,7 +911,7 @@ onBeforeUnmount(() => {
     }
 }
 
-/* ═══════════ SERVICES SECTION ═══════════ */
+/* ========== SERVICES SECTION ========== */
 .section-services {
     background-color: var(--color-base-200);
 
@@ -1002,109 +987,7 @@ onBeforeUnmount(() => {
     }
 }
 
-/* ═══════════ CONTACT SECTION ═══════════ */
-.section-contact {
-    background: var(--color-base-100);
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 2rem;
-        left: 60%;
-        width: 16rem;
-        height: 16rem;
-        background: var(--color-accent);
-        filter: blur(110px);
-        opacity: 0.12;
-        pointer-events: none;
-    }
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 3rem;
-    max-width: 900px;
-    width: 100%;
-    z-index: 1;
-
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-    }
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-
-    &__field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem;
-
-        & label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: color-mix(in srgb, var(--color-base-content), transparent 20%);
-        }
-
-        & input, & textarea {
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius-box);
-            border: 1px solid color-mix(in srgb, var(--color-base-content), transparent 85%);
-            background: var(--color-base-200);
-            color: var(--color-base-content);
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            outline: none;
-
-            &:focus {
-                border-color: var(--color-primary);
-                box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary), transparent 80%);
-            }
-
-            &::placeholder {
-                color: color-mix(in srgb, var(--color-base-content), transparent 60%);
-            }
-        }
-
-        & textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-    }
-
-    &__submit {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.85rem 2rem;
-        border: none;
-        border-radius: var(--radius-box);
-        background: var(--color-primary);
-        color: var(--color-primary-content);
-        font-weight: 700;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        align-self: flex-start;
-        transform: translateY(12px);
-
-        &:hover {
-            transform: translateY(8px);
-            box-shadow: 0 6px 20px color-mix(in srgb, var(--color-primary), transparent 50%);
-        }
-
-        &:active {
-            transform: translateY(14px);
-        }
-    }
-}
-
-/* ═══════════ FOOTER ═══════════ */
+/* ========== FOOTER ========== */
 .footer {
     width: 100%;
     padding: 2rem;
@@ -1125,6 +1008,7 @@ onBeforeUnmount(() => {
     }
 
     &__heart {
+        color: var(--color-secondary);
         animation: heartbeat 1.4s ease-in-out infinite;
         display: inline-flex;
     }
@@ -1191,10 +1075,10 @@ onBeforeUnmount(() => {
             background: var(--color-base-200);
             color: var(--color-base-content);
             transition: all 0.25s ease;
+            user-select: none;
 
             &:hover {
                 background: var(--color-primary);
-                color: var(--color-primary-content) !important;
                 transform: translateY(-3px);
                 box-shadow: 0 6px 16px color-mix(in srgb, var(--color-primary), transparent 50%);
             }

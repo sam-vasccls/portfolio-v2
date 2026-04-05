@@ -38,6 +38,10 @@ defineProps<{
     transform: scale(1.1);
 }
 
+.normal-btn:hover :deep(.icon) {
+    animation: send 750ms cubic-bezier(0,.7,.36,2.06);
+}
+
 .normal-btn:active {
     transform: scale(0.95);
 }
@@ -121,7 +125,10 @@ defineProps<{
 
 .super-btn, .normal-btn {
     position: relative;
+    display: inline-flex;
     align-items: center;
+    gap: 1rem;
+    justify-content: center;
     appearance: none;
     min-width: 0;
     max-width: fit-content;
@@ -131,10 +138,8 @@ defineProps<{
     border-width: 0;
     box-sizing: border-box;
     cursor: pointer;
-    display: inline-flex;
     font-family: "JetBrains Mono", monospace;
     height: 48px;
-    justify-content: center;
     line-height: 1;
     text-transform: capitalize;
     text-align: center;
