@@ -1,8 +1,8 @@
 import Toast, { useToast as useToastification } from 'vue-toastification'
-import type { PluginOptions } from 'vue-toastification'
+import type { PluginOptions, POSITION } from 'vue-toastification'
 
 const options: PluginOptions = {
-    position: 'bottom-right'
+    position: 'bottom-right' as POSITION
 }
 
 declare module '#app' {
