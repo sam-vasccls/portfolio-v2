@@ -1,6 +1,6 @@
 <template>
     <main class="main fade-in">
-        <AppLogo />
+        <AppLogo is-nav />
         <header class="section section-hero">
             <div class="section-hero__grid">
                 <div class="section-hero__title">
@@ -132,6 +132,7 @@
         <ContactSection />
 
 <footer class="footer">
+            <AppLogo is-footer />
             <p class="footer__text">
                 © {{ currentYear }} · Developed with 
                 <!-- <Icon name="noto:red-heart" size="16" class="footer__heart" />  -->
@@ -148,7 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce';
 import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
 const currentYear = new Date().getFullYear()
@@ -236,14 +237,13 @@ const balloonCounter = shallowRef(0)
 function onBalloonHover() {
     if (balloonTimer) return
 
-    if(balloonCounter.value > 0) return
+    if(balloonCounter.value > 3) return
     balloonCounter.value++
-
-    console.log('hello')
 
     balloonTimer = setTimeout(() => {
         const balloon = document.querySelector('.balloon--cool')
         if (!balloon) return
+        console.log('show balloon')
         gsap.fromTo(
             balloon,
             { opacity: 0, y: 30, x: -20, scale: 0.7, filter: 'blur(20px)' },
@@ -670,7 +670,8 @@ onBeforeUnmount(() => {
     letter-spacing: 0.05em;
     color: color-mix(in srgb, var(--color-base-content), transparent 60%);
     white-space: nowrap;
-    width: calc(max-content + 1rem);
+    width: max-content;
+    padding-inline: 0.5rem;
     transition: color 0.3s;
 
     &:hover {
@@ -717,43 +718,6 @@ onBeforeUnmount(() => {
     @media (max-width: 768px) {
         align-self: center;
     }
-}
-
-/* ========== SHARED SECTION ELEMENTS ========== */
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 0.25rem;
-}
-
-.section-subtitle {
-    text-align: center;
-    color: color-mix(in srgb, var(--color-base-content), transparent 40%);
-    font-size: 1.05rem;
-    margin-bottom: 3rem;
-}
-
-/* ========== SECTION LAYOUT BASE ========== */
-.section {
-    position: relative;
-    width: 100%;
-}
-
-.section-tech,
-.section-services,
-.section-contact {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5rem 2rem;
-    // overflow: hidden;
 }
 
 /* ========== TECH STACK SECTION ========== */

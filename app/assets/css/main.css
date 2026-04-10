@@ -53,6 +53,21 @@ button {
     --darker-50: color-mix(in srgb, var(--color-primary), black 50%);
     --darker-80: color-mix(in srgb, var(--color-primary), black 80%);
     --darker-90: color-mix(in srgb, var(--color-primary), black 90%);
+    
+    --secondary-lighter-10: color-mix(in srgb, var(--color-secondary), white 10%);
+    --secondary-lighter-20: color-mix(in srgb, var(--color-secondary), white 20%);
+    --secondary-lighter-30: color-mix(in srgb, var(--color-secondary), white 30%);
+    --secondary-lighter-40: color-mix(in srgb, var(--color-secondary), white 40%);
+    --secondary-lighter-50: color-mix(in srgb, var(--color-secondary), white 50%);
+    --secondary-lighter-80: color-mix(in srgb, var(--color-secondary), white 80%);
+    
+    --secondary-darker-10: color-mix(in srgb, var(--color-secondary), black 10%);
+    --secondary-darker-20: color-mix(in srgb, var(--color-secondary), black 20%);
+    --secondary-darker-30: color-mix(in srgb, var(--color-secondary), black 30%);
+    --secondary-darker-40: color-mix(in srgb, var(--color-secondary), black 40%);
+    --secondary-darker-50: color-mix(in srgb, var(--color-secondary), black 50%);
+    --secondary-darker-80: color-mix(in srgb, var(--color-secondary), black 80%);
+    --secondary-darker-90: color-mix(in srgb, var(--color-secondary), black 90%);
 }
 
 .span-primary {
@@ -166,6 +181,44 @@ textarea, [contenteditable="true"] {
     animation: fadeInSkip 0.5s 2s ease-in forwards;
 }
 
+/* ========== SHARED SECTION ELEMENTS ========== */
+
+.section {
+    position: relative;
+    width: 100%;
+}
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: color-mix(in srgb, var(--color-base-content), transparent 40%);
+    font-size: 1.05rem;
+    margin-bottom: 3rem;
+}
+
+.section-tech,
+.section-services,
+.section-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem 2rem;
+    /* overflow: hidden; */
+}
+
+/* ========== ANIMATION ========== */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -211,6 +264,30 @@ textarea, [contenteditable="true"] {
     51% {
         opacity: 0;
         transform: translateX(-24px)
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(-10px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes logoFloat {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 

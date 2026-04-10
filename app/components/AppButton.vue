@@ -334,18 +334,6 @@ defineProps<{
 
 // Animations
 
-@keyframes float {
-    0% {
-        transform: translateY(-10px);
-    }
-    50% {
-        transform: translateY(-20px);
-    }
-    100% {
-        transform: translateY(-10px);
-    }
-}
-
 @keyframes textFloat {
     0%, 100% {
         transform: translateY(-8px) scale(1.3) translateZ(2px);

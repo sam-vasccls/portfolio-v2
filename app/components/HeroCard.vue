@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card card--back">
-                <!-- Some content or logo or nothing -->
+                <AppLogo is-card/>
             </div>
         </div>
     </div>
@@ -111,6 +111,7 @@ function setCardPosition(e) {
         position: absolute;
         inset: 50%;
         transform: translateX(-50%);
+        backface-visibility: hidden;
         top: 30px;
         width: 175px;
         height: 175px;
@@ -236,11 +237,12 @@ function setCardPosition(e) {
 }
 
 .card--back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transform: rotateY(180deg);
     backface-visibility: hidden;
-    background: linear-gradient(135deg, var(--color-base-200) 15%, var(--color-primary), var(--color-accent) 50%, var(--color-secondary), var(--color-base-200) 95%);
-    box-shadow: inset 0 0 10px 10px var(--color-base-100);
-    /* I could add a logo here */
+    background: linear-gradient(135deg, var(--color-base-200), var(--color-primary), var(--color-accent), var(--color-secondary), var(--color-base-200));    
 }
 .card {
     position: absolute;
