@@ -7,10 +7,10 @@
                 </div>
                 <div class="card__info">
                     <div><label>Name:</label><div class="card__line"/><p>Sam Vasconcelos</p></div>
-                    <div><label>Role:</label><div class="card__line"/><p>JavaScript Wizard</p></div>
+                    <div><label>Role:</label><div class="card__line"/><p>Frontend Developer</p></div>
                     <div><label>Background:</label><div class="card__line"/><p>Web software development</p></div>
                     <div><label>Strength:</label><div class="card__line"/><p>Logic-driven interfaces</p></div>
-                    <div><label>Currently:</label><div class="card__line"/><p>Bridging UX and Complexity</p></div>
+                    <div><label>Currently:</label><div class="card__line"/><p>Bridging UI/UX and Logic</p></div>
                     <div><label>Fun:</label><div class="card__line"/><p>+9000 points</p></div>
                     <div class="card__medals">
                         <p>Acquired Medals:</p>

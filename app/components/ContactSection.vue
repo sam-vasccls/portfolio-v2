@@ -1,6 +1,6 @@
 <template>
     <section class="section section-contact">
-            <h2 class="section-title">Get In Touch</h2>
+            <h2 :class="['section-title', titlesStyle]">Get In Touch</h2>
             <p class="section-subtitle">Let's build something together</p>
 
             <div class="contact-grid">
@@ -37,8 +37,8 @@
                             id="contact-message"
                             v-model="contact.message"
                             name="message"
-                            :class="{'input-error': messageError}"
                             rows="5"
+                            :class="{'input-error': messageError}"
                             placeholder="Tell me about your ideas..."
                         />
                         <span v-if="messageError" class="contact-error">{{ messageError }}</span>
@@ -81,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-const { isDarkTheme } = useTheme()
+const { isDarkTheme, titlesStyle } = useTheme()
 const toast = useAppToast()
 
 const contact = reactive({
@@ -222,8 +222,9 @@ async function submitContactForm() {
         }
 
         & textarea {
-            resize: vertical;
-            min-height: 120px;
+            resize: none;
+            height: 150px;
+            min-height: 150px;
         }
 
         & .contact-error {

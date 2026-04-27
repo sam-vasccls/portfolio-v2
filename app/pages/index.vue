@@ -4,13 +4,15 @@
         <header class="section section-hero">
             <div class="section-hero__grid">
                 <div class="section-hero__title">
-                    <h3 ref="heroH3" class="hero-enter">Hey, what's up? <br> I'm Sam!</h3>
-                    <h1 id="title" ref="heroH1" class="section-hero__title-main gradient-text hero-enter">
+                    <h3 ref="heroH3" class="hero-enter">Hey, what's up? <br> I'm <span class="span-accent">Sam</span>!</h3>
+                    <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle]">
                         <span>{{'<'}}</span>
                         Creative Frontend Developer
                         <span>{{'/>'}}</span>
                     </h1>
-                    <h2 ref="heroH2" class="py-6 text-left text-lg hero-enter">Developer focused on clean architecture, practical solutions, professionalism, amazing experience and continuous learning!</h2>
+                    <h2 ref="heroH2" class="py-6 text-left text-lg hero-enter">
+                        I write clean code, build things that work beautifully, and that the next developer won't hate maintaining.
+                    </h2>
                     <div ref="heroBtn" class="section-hero__btn hero-enter">
                         <AppButton
                             :fancy-btn="windowWidth > phoneBreakpoint"
@@ -19,7 +21,7 @@
                             @mouseleave="onBalloonLeave"
                             @click="scrollToContent"
                         >
-                            Let's Begin!!
+                            Explore more
                         </AppButton>
                         <BalloonTooltip text="cool" class="balloon balloon--cool" />
                     </div>
@@ -46,7 +48,7 @@
             </div>
 
             <div class="about-content">
-                <h2 class="section-title about-title">About Me</h2>
+                <h2 :class="['section-title about-title', titlesStyle]">About Me</h2>
                 <div class="about-content__inner text-left">
                     <p class="about-text hidden">
                         My passion lies in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
@@ -65,7 +67,7 @@
                         overall structure and organization. 
                     </p>
                     <p class="about-text">
-                        I care about how things work as much as how they look.
+                        I care about how things work as much as how they look. I write clean code, and I build things that work beautifully, and that the next developer won't hate maintaining.
                         And I take the craft seriously. Always studying, always refining, always looking for the next problem worth solving.
                     </p>
                 </div>
@@ -74,7 +76,7 @@
 
         <!-- ========== TECH STACK — GSAP FLIP ========== -->
         <section ref="techSection" class="section section-tech" @mousemove="onTechParallax" @mouseleave="resetTechParallax">
-            <h2 class="section-title">Tech Stack</h2>
+            <h2 :class="['section-title', titlesStyle]">Tech Stack</h2>
             <p class="section-subtitle">Technologies I work with daily</p>
 
             <div class="tech-showcase">
@@ -114,7 +116,7 @@
 
         <!-- ========== SERVICES ========== -->
         <section class="section section-services">
-            <h2 class="section-title">Services</h2>
+            <h2 :class="['section-title', titlesStyle]">Services</h2>
             <p class="section-subtitle">Activities I'm proficient and comfortable working on</p>
 
             <div class="services-grid">
@@ -131,7 +133,7 @@
         <!-- ========== CONTACT ========== -->
         <ContactSection />
 
-<footer class="footer">
+        <footer class="footer">
             <AppLogo is-footer />
             <p class="footer__text">
                 © {{ currentYear }} · Developed with 
@@ -154,7 +156,7 @@ import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
 const currentYear = new Date().getFullYear()
 
-const { isDarkTheme } = useTheme() // Assuming you have a theme composable that provides this reactive variable
+const { isDarkTheme, titlesStyle } = useTheme() // Assuming you have a theme composable that provides this reactive variable
 const { $gsap: gsap } = useNuxtApp()
 
 const windowWidth = ref(1000)
@@ -178,7 +180,7 @@ const techs = [
     { name: 'Figma', icon: '/icons/figma.svg', description: 'Collaborative design tool for prototyping interfaces, creating design systems, and developer handoff.' },
     { name: 'Tailwind CSS', icon: '/icons/tailwindcss.svg', description: 'Utility-first CSS framework for rapidly building custom designs without leaving your HTML.' },
     { name: 'Vite', icon: '/icons/vite.svg', description: 'Next-generation frontend tooling for fast development and optimized builds.' },
-    { name: 'Vue', icon: '/icons/vuejs.svg', description: 'Progressive JavaScript framework for building modern, reactive user interfaces with a component-driven architecture.' },
+    { name: 'Vue.js', icon: '/icons/vuejs.svg', description: 'Progressive JavaScript framework for building modern, reactive user interfaces with a component-driven architecture.' },
     { name: 'Nuxt', icon: '/icons/nuxtjs.svg', description: 'Full-stack Vue framework with SSR, routing, and a powerful module ecosystem for production-grade web applications.' },
     { name: 'Node.js', icon: '/icons/nodejs.svg', description: 'Server-side JavaScript runtime powering APIs, tooling, and full-stack applications with a vast package ecosystem.' },
     { name: 'Express.js', icon: '/icons/express.svg', description: 'Flexible Node.js web application framework providing a robust set of features for web and mobile applications.' },
@@ -558,7 +560,6 @@ onBeforeUnmount(() => {
                 justify-self: left;
                 padding-left: 1rem;
             }
-
         }
     }
 
@@ -619,19 +620,17 @@ onBeforeUnmount(() => {
 
 /* ========== ABOUT SECTION ========== */
 .section-about {
-    min-height: 80vh;
-    background-color: var(--color-base-200);
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: hidden;
+    overflow: visible;
 
     &::after {
         content: '';
         position: absolute;
-        bottom: -4rem;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: -2rem;
+        left: 30%;
+        z-index: 3;
         width: 14rem;
         height: 14rem;
         background: var(--color-accent);
@@ -654,7 +653,7 @@ onBeforeUnmount(() => {
 
 .about-marquee__track {
     display: flex;
-    gap: 1rem;
+    gap: 0rem;
     width: max-content;
     animation: marqueeScroll 60s linear infinite;
 }
@@ -675,7 +674,7 @@ onBeforeUnmount(() => {
     transition: color 0.3s;
 
     &:hover {
-        color: var(--color-primary);
+        color: var(--color-accent);
     }
 }
 .about-marquee__dot {
@@ -727,7 +726,7 @@ onBeforeUnmount(() => {
     &::before {
         content: '';
         position: absolute;
-        top: -5rem;
+        top: 8rem;
         right: 20%;
         width: 18rem;
         height: 18rem;
@@ -804,7 +803,7 @@ onBeforeUnmount(() => {
         font-weight: 700;
         margin-bottom: 0.5rem;
         font-family: 'JetBrains Mono', monospace;
-        color: var(--color-primary);
+        color: var(--color-secondary);
     }
 
     &__desc {

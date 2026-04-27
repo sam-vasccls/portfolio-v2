@@ -51,7 +51,7 @@ defineProps({
     &.is-footer {
         width: 35px;
         height: 35px;
-        animation: logoFloat 5s ease-in-out infinite;
+        animation: none;
     }
 
     & .logo {
