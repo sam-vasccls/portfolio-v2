@@ -36,6 +36,8 @@ defineProps<{
 
 .normal-btn:hover {
     transform: scale(1.1);
+    letter-spacing: 4px;
+    word-spacing: 2px;
 }
 
 .normal-btn:hover :deep(.icon) {

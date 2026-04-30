@@ -1,5 +1,6 @@
 <template>
     <div class="layout-wrapper" :data-theme="activeTheme">
+        <AppLogo is-nav />
         <slot />
         <AppThemeButton />
     </div>

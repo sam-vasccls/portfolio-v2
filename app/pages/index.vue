@@ -1,10 +1,11 @@
 <template>
     <main class="main fade-in">
-        <AppLogo is-nav />
         <header class="section section-hero">
             <div class="section-hero__grid">
                 <div class="section-hero__title">
-                    <h3 ref="heroH3" class="hero-enter">Hey, what's up? <br> I'm <span class="span-accent">Sam</span>!</h3>
+                    <h3 ref="heroH3" class="hero-enter">
+                        Hey, what's up? <br> I'm <span class="span-accent">Sam</span>!
+                    </h3>
                     <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle]">
                         <span>{{'<'}}</span>
                         Creative Frontend Developer
@@ -70,6 +71,12 @@
                         I care about how things work as much as how they look. I write clean code, and I build things that work beautifully, and that the next developer won't hate maintaining.
                         And I take the craft seriously. Always studying, always refining, always looking for the next problem worth solving.
                     </p>
+                </div>
+
+                <div>
+                    <AppButton @click="goToLoadMorePage">
+                        More About Me
+                    </AppButton>
                 </div>
             </div>
         </section>
@@ -387,6 +394,11 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
 })
+
+const router = useRouter()
+function goToLoadMorePage() {
+    router.push('/even-more-about')
+}
 </script>
 
 <style scoped lang="scss">

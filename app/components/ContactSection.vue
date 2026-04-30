@@ -137,7 +137,7 @@ async function submitContactForm() {
         toast.success("Message sent successfully!")
     } catch (error) {
         console.error("Error sending contact form:", error)
-        toast.error("Failed to send message. Did you enter a valid email address?")
+        toast.error("Failed to send message. Try again later.")
         isSendingEmail.value = false
         return
     }

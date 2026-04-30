@@ -7,17 +7,20 @@ export default defineEventHandler(async (event) => {
     const resend = new Resend(process.env.API_KEY)
 
     const response = await resend.emails.send({
-        from: `${body.email}`,
+        from: 'onboarding@resend.dev',
         to: 'sam.vasconcelos.dev@gmail.com',
-        subject: `Portfolio Contact - Name: ${body.name} `,
+        replyTo: `${body.email}`,
+        subject: `Portfolio Contact - ${body.name} `,
         html: `
-        <strong>Name: ${body.name}</strong>
-        <br/>
-        <strong>Email: ${body.email}</strong>
-        <br/>
-        <strong>Message:</strong>
-        <br/><br/>
-        <p>${body.message}</p>`,
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <h2 style="color: oklch(45% 0.24 277.023);">Portfolio Contact</h2>
+            <p><strong>Name:</strong> ${body.name}</p>
+            <p><strong>Email:</strong> <a href="mailto:${body.email}" style="color: oklch(45% 0.24 277.023); text-decoration: none;">${body.email}</a></p>
+            <p><strong>Message:</strong></p>
+            <div style="background: oklch(93% 0.034 272.788); padding: 10px; border: 1px solid oklch(95% 0 0); border-radius: 5px;">
+                <p>${body.message}</p>
+            </div>
+        </div>`,
     });
 
     if (response.error) {
