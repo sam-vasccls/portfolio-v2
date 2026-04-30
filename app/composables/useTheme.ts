@@ -8,6 +8,8 @@ export function useTheme() {
         switch (activeTheme.value) {
             case 'cupcake':
                 return 'section-title--cupcake'
+            case 'bumblebee':
+                return 'section-title--bee'
             case 'cyberpunk':
                 return 'section-title--cyber'
             case 'aqua':

@@ -4,13 +4,13 @@
             <div class="section-hero__grid">
                 <div class="section-hero__title">
                     <h3 ref="heroH3" class="hero-enter">
-                        Hey, what's up? <br> I'm <span class="span-accent">Sam</span>!
+                        Hey, what's up? <br> I'm <span :class="[activeTheme === 'abyss' ? 'span-secondary' : 'span-accent']">Sam</span>!
                     </h3>
-                    <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle]">
-                        <span>{{'<'}}</span>
-                        Creative Frontend Developer
-                        <span>{{'/>'}}</span>
-                    </h1>
+                        <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle, activeTheme]">
+                            <span>{{'<'}}</span>
+                            Creative Frontend Developer
+                            <span>{{'/>'}}</span>
+                        </h1>
                     <h2 ref="heroH2" class="py-6 text-left text-lg hero-enter">
                         I write clean code, build things that work beautifully, and that the next developer won't hate maintaining.
                     </h2>
@@ -74,7 +74,7 @@
                 </div>
 
                 <div>
-                    <AppButton @click="goToLoadMorePage">
+                    <AppButton class="more-about" @click="goToLoadMorePage">
                         More About Me
                     </AppButton>
                 </div>
@@ -122,12 +122,12 @@
         </section>
 
         <!-- ========== SERVICES ========== -->
-        <section class="section section-services">
+        <section :class="['section section-services', { 'section-services--cupcake': activeTheme === 'cupcake' }]">
             <h2 :class="['section-title', titlesStyle]">Services</h2>
             <p class="section-subtitle">Activities I'm proficient and comfortable working on</p>
 
             <div class="services-grid">
-                <div v-for="service in services" :key="service.title" class="service-card">
+                <div v-for="service in services" :key="service.title" :class="['service-card', { 'service-card--cupcake': activeTheme === 'cupcake' || activeTheme === 'ice' }]">
                     <div class="service-card__icon">
                         <Icon :name="service.icon" size="36" />
                     </div>
@@ -163,7 +163,7 @@ import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
 const currentYear = new Date().getFullYear()
 
-const { isDarkTheme, titlesStyle } = useTheme() // Assuming you have a theme composable that provides this reactive variable
+const { isDarkTheme, activeTheme, titlesStyle } = useTheme()
 const { $gsap: gsap } = useNuxtApp()
 
 const windowWidth = ref(1000)
@@ -482,7 +482,7 @@ function goToLoadMorePage() {
         position: absolute;
         z-index: 0;
         top: 25rem;
-        left: 35%;
+        left: 5%;
         transform: translateX(-50%) rotate(45deg);
         width: 25rem;
         height: 25rem;
@@ -606,7 +606,24 @@ function goToLoadMorePage() {
         -webkit-text-fill-color: transparent;
         background-clip: text;
         color: transparent;
+
+        &.light {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary), var(--color-accent), var(--color-secondary), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% auto;
+            background-position: 50% center;
+        }
+
+        &.bumblebee {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     }
+
 }
 
 .scroll-indicator {
@@ -627,7 +644,7 @@ function goToLoadMorePage() {
 
 @keyframes orbFloat {
     0%, 100% { transform: translate(0, 0); }
-    50%      { transform: translate(-200px, 135px); }
+    50%      { transform: translate(-100px, 75px); }
 }
 
 /* ========== ABOUT SECTION ========== */
@@ -686,7 +703,7 @@ function goToLoadMorePage() {
     transition: color 0.3s;
 
     &:hover {
-        color: var(--color-accent);
+        color: var(--color-secondary);
     }
 }
 .about-marquee__dot {
@@ -716,6 +733,10 @@ function goToLoadMorePage() {
 
     &__inner :deep(span) {
         display: inline-block;
+    }
+
+    & .more-about {
+        transform: translateY(50px);
     }
 }
 
@@ -890,6 +911,10 @@ function goToLoadMorePage() {
 .section-services {
     background-color: var(--color-base-200);
 
+    &--cupcake {
+        background-color: var(--color-base-100);
+    }
+
     &::after {
         content: '';
         position: absolute;
@@ -932,6 +957,10 @@ function goToLoadMorePage() {
     background: var(--color-base-300);
     border: 1px solid color-mix(in srgb, var(--color-base-content), transparent 90%);
     transition: all 0.3s ease;
+
+    &--cupcake {
+        background: var(--color-base-200);
+    }
 
     &:hover {
         transform: translateY(-6px);
