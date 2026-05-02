@@ -29,6 +29,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .app-logo {
+    display: block;
     width: 75px;
     height: 75px;
     transition: transform 0.3s ease;
@@ -37,8 +38,6 @@ defineProps({
     &.is-nav {
         position: absolute;
         top: 1rem;
-        left: 50%;
-        transform: translateX(-50%);
         cursor: pointer;
         animation: logoFloat 5s ease-in-out infinite;
     }

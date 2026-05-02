@@ -4,16 +4,18 @@
             <div class="section-hero__grid">
                 <div class="section-hero__title">
                     <h3 ref="heroH3" class="hero-enter">
-                        Hey, what's up? <br> I'm <span :class="[activeTheme === 'abyss' ? 'span-secondary' : 'span-accent']">Sam</span>!
+                        Hey, how's it going? <br> I'm <span :class="[activeTheme === 'abyss' ? 'span-secondary' : 'span-accent']">Sam</span>!
                     </h3>
-                        <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle, activeTheme]">
-                            <span>{{'<'}}</span>
-                            Creative Frontend Developer
-                            <span>{{'/>'}}</span>
-                        </h1>
-                    <h2 ref="heroH2" class="py-6 text-left text-lg hero-enter">
-                        I write clean code, build things that work beautifully, and that the next developer won't hate maintaining.
-                    </h2>
+                    <h1 id="title" ref="heroH1" :class="['section-hero__title-main gradient-text hero-enter', titlesStyle, activeTheme]">
+                        <span>{{'<'}}</span>
+                        Creative Frontend Developer
+                        <span>{{'/>'}}</span>
+                    </h1>
+                    <div class="w-full text-center py-6 flex justify-center items-center">
+                        <h2 ref="heroH2" class="inline-block text-lg w-[80%] hero-enter">
+                            Crafting fast, accessible, and beautifully engineered web experiences. From architecture to pixels.
+                        </h2>
+                    </div>
                     <div ref="heroBtn" class="section-hero__btn hero-enter">
                         <AppButton
                             :fancy-btn="windowWidth > phoneBreakpoint"
@@ -444,15 +446,18 @@ function goToLoadMorePage() {
     justify-content: center;
     background: inherit;
     
-    @media (max-width: 900px) {
-
+        @media (max-width: 900px) {
+        flex-direction: column;
+        
         &__card {
             max-width: 350px;
             margin: 0 auto;
         }
-
+        
         &__title {
+            flex: 1;
             max-width: 100%;
+            height: 100%;
             align-items: center;
             text-align: center;
         }
@@ -474,6 +479,11 @@ function goToLoadMorePage() {
         opacity: 0.2;
         pointer-events: none;
         animation: orbFloat 6s ease-in-out infinite;
+
+        @media (max-width: 900px) {
+            top: 50%;
+            left: 75%;
+        }
     }
 
     &::before {
@@ -506,7 +516,6 @@ function goToLoadMorePage() {
         padding-inline: 2rem;
 
         @media(max-width: 900px) {
-
             padding-inline: 1rem;
             grid-template-columns: 1fr;
             max-width: 100vw;
@@ -516,11 +525,10 @@ function goToLoadMorePage() {
         }
 
         & .header-btn {
-            margin-top: 2rem;
 
             @media(max-width: 900px) {
                 position: absolute;
-                bottom: 3rem;
+                bottom: 0rem;
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -545,7 +553,7 @@ function goToLoadMorePage() {
 
         & h1 {
             line-height: 1.2;
-            text-align: left;
+            text-align: center;
             opacity: 1;
 
             @media (max-width: 900px) {
@@ -577,6 +585,7 @@ function goToLoadMorePage() {
 
     &__title-main {
         font-size: 4rem;
+        width: fit-content;
         font-weight: 700;
         font-family: 'Montserrat', 'Noto Sans', 'Google Sans', sans-serif;
         color: var(--color-base-content);
@@ -592,9 +601,9 @@ function goToLoadMorePage() {
         justify-content: center;
         margin: 1.5rem auto 0;
 
-        @media(max-width: 768px) {
+        @media(max-width: 900px) {
             position: absolute;
-            bottom: 2rem;
+            bottom: 4rem;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -1000,6 +1009,11 @@ function goToLoadMorePage() {
     justify-content: center;
     background: var(--color-base-100);
     border-top: 1px solid color-mix(in srgb, var(--color-base-content), transparent 90%);
+
+    @media (max-width: 425px) {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
 
     &__text {
         display: flex;
