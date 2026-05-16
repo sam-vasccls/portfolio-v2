@@ -13,7 +13,7 @@
                     </h1>
                     <div class="w-full text-center py-6 flex justify-center items-center">
                         <h2 ref="heroH2" class="inline-block text-lg w-[80%] hero-enter">
-                            Crafting fast, accessible, and beautifully engineered web experiences. From architecture to pixels.
+                            Crafting fast, accessible, and beautifully engineered web experiences. <br> From architecture to pixels.
                         </h2>
                     </div>
                     <div ref="heroBtn" class="section-hero__btn hero-enter">
@@ -38,7 +38,7 @@
         </header>
 
         <!-- ========== MARQUEE + ABOUT ========== -->
-        <section class="section section-about">
+        <section :class="['section section-about', {'has-background': activeTheme !== 'cupcake'}]">
             <div class="about-marquee" aria-hidden="true">
                 <div class="about-marquee__track">
                     <span v-for="(word, index) in actionsList" :key="'a' + index" class="about-marquee__word">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="about-content">
-                <h2 :class="['section-title about-title', titlesStyle]">About Me</h2>
+                <h2 :class="['section-title about-title', titlesStyle, { 'cupcake': activeTheme === 'cupcake' } ]">About</h2>
                 <div class="about-content__inner text-left">
                     <p class="about-text hidden">
                         My passion lies in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
@@ -67,18 +67,12 @@
                     <p class="about-text">
                         I build interfaces where design and engineering meet: strong focus on clean code, thoughtful UX, and attention to the details that most people skip.
                         My background is heavier on web software than static sites, which means I think in systems: state, data flow, component architecture, 
-                        overall structure and organization. 
+                        overall structure and organization.
                     </p>
                     <p class="about-text">
-                        I care about how things work as much as how they look. I write clean code, and I build things that work beautifully, and that the next developer won't hate maintaining.
-                        And I take the craft seriously. Always studying, always refining, always looking for the next problem worth solving.
+                        I care about how things work as much as how they look. I build things that work beautifully, and that the next developer won't hate maintaining.
+                        And it's always a pleasure to work and deploy amazing, high-quality digital experiences.
                     </p>
-                </div>
-
-                <div>
-                    <AppButton class="more-about" @click="goToLoadMorePage">
-                        More About Me
-                    </AppButton>
                 </div>
             </div>
         </section>
@@ -123,21 +117,7 @@
             </div>
         </section>
 
-        <!-- ========== SERVICES ========== -->
-        <section :class="['section section-services', { 'section-services--cupcake': activeTheme === 'cupcake' }]">
-            <h2 :class="['section-title', titlesStyle]">Services</h2>
-            <p class="section-subtitle">Activities I'm proficient and comfortable working on</p>
-
-            <div class="services-grid">
-                <div v-for="service in services" :key="service.title" :class="['service-card', { 'service-card--cupcake': activeTheme === 'cupcake' || activeTheme === 'ice' }]">
-                    <div class="service-card__icon">
-                        <Icon :name="service.icon" size="36" />
-                    </div>
-                    <h3 class="service-card__title">{{ service.title }}</h3>
-                    <p class="service-card__desc">{{ service.desc }}</p>
-                </div>
-            </div>
-        </section>
+        <ServicesSection />
 
         <!-- ========== CONTACT ========== -->
         <ContactSection />
@@ -146,16 +126,15 @@
             <AppLogo is-footer />
             <p class="footer__text">
                 © {{ currentYear }} · Developed with 
-                <!-- <Icon name="noto:red-heart" size="16" class="footer__heart" />  -->
                 <Icon name="material-symbols:favorite-rounded" size="16" class="footer__heart" /> 
                 by
                 <span class="footer__name">Sam Dev</span>
             </p>
         </footer>
 
-        <!-- <Teleport to="body">
+        <Teleport to="body">
             <AppMobileMenu />
-        </Teleport> -->
+        </Teleport>
     </main>
 </template>
 
@@ -309,15 +288,6 @@ function scrollToContent() {
     document.querySelector('.section-about')?.scrollIntoView({ behavior: 'smooth' })
 }
 
-const services = [
-    { icon: 'material-symbols:code-rounded', title: 'Frontend Development', desc: 'Building fast, accessible, and responsive interfaces with Vue, Nuxt, and Typescript.' },
-    { icon: 'material-symbols:design-services-rounded', title: 'UI/UX Design', desc: 'Designing intuitive user experiences with Figma — from wireframes to high-fidelity prototypes.' },
-    { icon: 'material-symbols:stacks-rounded', title: 'Full-Stack Development', desc: 'End-to-end application development including APIs, databases, and server-side rendering.' },
-    { icon: 'material-symbols:api-rounded', title: 'API Integration', desc: 'Connecting frontends to REST and GraphQL APIs with proper error handling and type safety.' },
-    { icon: 'material-symbols:speed-rounded', title: 'Performance Optimization', desc: 'Auditing and improving Core Web Vitals, bundle sizes, and runtime performance.' },
-    // { icon: 'material-symbols:accessibility-rounded', title: 'Accessibility', desc: 'Building to WCAG standards — semantic HTML, keyboard navigation, and screen reader support.' }
-]
-
 onMounted(() => {
     if (import.meta.client) {
         window.addEventListener('resize', handleResize)
@@ -396,11 +366,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
 })
-
-const router = useRouter()
-function goToLoadMorePage() {
-    router.push('/even-more-about')
-}
 </script>
 
 <style scoped lang="scss">
@@ -676,6 +641,10 @@ function goToLoadMorePage() {
         opacity: 0.15;
         pointer-events: none;
     }
+
+    &.has-background {
+        background-color: var(--color-base-200);
+    }
 }
 
 .about-marquee {
@@ -745,7 +714,7 @@ function goToLoadMorePage() {
     }
 
     & .more-about {
-        transform: translateY(50px);
+        transform: translateY(0px);
     }
 }
 
@@ -916,89 +885,6 @@ function goToLoadMorePage() {
     }
 }
 
-/* ========== SERVICES SECTION ========== */
-.section-services {
-    background-color: var(--color-base-200);
-
-    &--cupcake {
-        background-color: var(--color-base-100);
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -4rem;
-        left: 35%;
-        width: 14rem;
-        height: 14rem;
-        background: var(--color-secondary);
-        filter: blur(100px);
-        opacity: 0.15;
-        pointer-events: none;
-    }
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    max-width: 1000px;
-    width: 100%;
-    z-index: 1;
-
-    @media (max-width: 900px) {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-    }
-}
-
-.service-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 260px;
-    min-height: 260px;
-    gap: 1rem;
-    padding: 1.75rem;
-    border-radius: var(--radius-box);
-    background: var(--color-base-300);
-    border: 1px solid color-mix(in srgb, var(--color-base-content), transparent 90%);
-    transition: all 0.3s ease;
-
-    &--cupcake {
-        background: var(--color-base-200);
-    }
-
-    &:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
-        border-color: var(--color-primary);
-    }
-
-    &__icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 56px;
-        height: 56px;
-        border-radius: 0.75rem;
-        background: color-mix(in srgb, var(--color-primary), transparent 85%);
-        color: var(--color-primary);
-    }
-
-    &__title {
-        font-size: 1.1rem;
-        font-weight: 700;
-    }
-
-    &__desc {
-        font-size: 0.9rem;
-        line-height: 1.55;
-        color: color-mix(in srgb, var(--color-base-content), transparent 30%);
-    }
-}
 
 /* ========== FOOTER ========== */
 .footer {

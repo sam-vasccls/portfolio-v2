@@ -15,7 +15,7 @@
                     <div class="card__medals">
                         <p>Acquired Medals:</p>
                         <ul>
-                            <li><Icon name="noto:military-medal" size="24" /> Lone Wolf (2 Projects, 1 year)</li>
+                            <li><Icon name="noto:military-medal" size="20" /> 3x Project Lead</li>
                         </ul>
                     </div>
                 </div>
@@ -242,7 +242,7 @@ function setCardPosition(e) {
     align-items: center;
     transform: rotateY(180deg);
     backface-visibility: hidden;
-    background: linear-gradient(135deg, var(--color-base-200), var(--color-primary), var(--color-accent), var(--color-secondary), var(--color-base-200));    
+    background: linear-gradient(135deg, var(--color-base-200) 20%, var(--color-primary));
 }
 .card {
     position: absolute;
@@ -358,7 +358,8 @@ function setCardPosition(e) {
             font-size: 0.85rem;
             background-color: var(--color-primary);
             color: var(--color-primary-content);
-            padding-inline: 0.5rem;
+            padding-inline: 1rem;
+            padding-bottom: 0.2rem;
             height: 38px;
             border-radius: var(--radius-box);
             box-shadow:

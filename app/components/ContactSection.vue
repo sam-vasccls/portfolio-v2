@@ -39,7 +39,7 @@
                             name="message"
                             rows="5"
                             :class="{'input-error': messageError}"
-                            placeholder="Tell me about your ideas..."
+                            placeholder="Let's chat..."
                         />
                         <span v-if="messageError" class="contact-error">{{ messageError }}</span>
                     </div>
@@ -187,17 +187,37 @@ async function submitContactForm() {
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.5rem;
 
     &__field {
+        position: relative;
         display: flex;
         flex-direction: column;
         gap: 0.35rem;
 
         & label {
+            position: absolute;
+            top: -10px;
+            left: 18px;
+            backdrop-filter: blur(4px);
             font-size: 0.85rem;
+            padding: 0px 12px;
+            border-radius: 4px;
+            width: max-content;
             font-weight: 600;
             color: color-mix(in srgb, var(--color-base-content), transparent 20%);
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: -6px;
+                transform: translateY(-50%) rotate(45deg);
+                width: 12px;
+                height: 12px;
+                background: inherit;
+                z-index: -1;
+            }
         }
 
         & input, & textarea {
