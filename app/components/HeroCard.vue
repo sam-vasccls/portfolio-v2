@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-const img = ref('/avatar/pic.jpg');
+const img = ref('/avatar/profile.png');
 
 const heroCard = ref(null)
 const cardWrapper = ref(null)
@@ -296,7 +296,7 @@ function setCardPosition(e) {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transform: scale(1.1) translateY(0.25rem);
+            transform: scale(1.05) translateY(-3px);
         }
     }
 

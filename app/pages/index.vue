@@ -37,89 +37,12 @@
             </div>
         </header>
 
-        <!-- ========== MARQUEE + ABOUT ========== -->
-        <section :class="['section section-about', {'has-background': activeTheme !== 'cupcake'}]">
-            <div class="about-marquee" aria-hidden="true">
-                <div class="about-marquee__track">
-                    <span v-for="(word, index) in actionsList" :key="'a' + index" class="about-marquee__word">
-                        {{ word }} <span class="about-marquee__dot">·</span>
-                    </span>
-                    <span v-for="(word, index) in actionsList" :key="'b' + index" class="about-marquee__word">
-                        {{ word }} <span class="about-marquee__dot">·</span>
-                    </span>
-                </div>
-            </div>
+        <AboutSection />
 
-            <div class="about-content">
-                <h2 :class="['section-title about-title', titlesStyle, { 'cupcake': activeTheme === 'cupcake' } ]">About</h2>
-                <div class="about-content__inner text-left">
-                    <p class="about-text hidden">
-                        My passion lies in crafting <span class="span-accent font-bold">high-quality digital experiences</span> that combine
-                        <span class="span-primary font-bold">clean architecture</span> with pixel-perfect interfaces.
-                        From concept to deployment, I focus on the UX, design, performance, accessibility, and code that scales, ensuring every project
-                        meets professional standards and delivers real value.
-                    </p>
-                    <p  class="about-text hidden">
-                        Beyond day-to-day development, I continuously invest in studying code, architecture, modern frameworks,
-                        and day-to-day tooling. I believe that a <span class="span-secondary font-bold">solid foundation</span>
-                        and thoughtful engineering are what separate good software from great software.
-                    </p>
-                    <p class="about-text">
-                        I build interfaces where design and engineering meet: strong focus on clean code, thoughtful UX, and attention to the details that most people skip.
-                        My background is heavier on web software than static sites, which means I think in systems: state, data flow, component architecture, 
-                        overall structure and organization.
-                    </p>
-                    <p class="about-text">
-                        I care about how things work as much as how they look. I build things that work beautifully, and that the next developer won't hate maintaining.
-                        And it's always a pleasure to work and deploy amazing, high-quality digital experiences.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========== TECH STACK — GSAP FLIP ========== -->
-        <section ref="techSection" class="section section-tech" @mousemove="onTechParallax" @mouseleave="resetTechParallax">
-            <h2 :class="['section-title', titlesStyle]">Tech Stack</h2>
-            <p class="section-subtitle">Technologies I work with daily</p>
-
-            <div class="tech-showcase">
-                <!-- Main featured tech -->
-                <div ref="techSectionRef" class="tech-main">
-                    <div :class="['tech-main__icon-wrapper', !isDarkTheme && 'icon-shadow']">
-                        <img
-                            ref="techMainIcon"
-                            :src="activeTech.icon"
-                            :alt="activeTech.name"
-                            :class="['tech-main__icon', (activeTech.name === 'GitHub' || activeTech.name === 'Express.js') && isDarkTheme && 'icon-light']"
-                        >
-                    </div>
-                    <Transition name="tech-text" mode="out-in">
-                        <div :key="activeTech.name" class="tech-main__info">
-                            <h3 class="tech-main__name">{{ activeTech.name }}</h3>
-                            <p class="tech-main__desc">{{ activeTech.description }}</p>
-                        </div>
-                    </Transition>
-                </div>
-
-                <!-- Icon grid -->
-                <div class="tech-grid">
-                    <button
-                        v-for="(tech, index) in techs"
-                        :key="tech.name"
-                        :class="['tech-grid__item', { 'tech-grid__item--active': index === activeTechIndex }]"
-                        :aria-label="'Select ' + tech.name"
-                        @click="selectTech(index)"
-                    >
-                        <img :src="tech.icon" :alt="tech.name" :class="['tech-grid__icon', (tech.name === 'GitHub' || tech.name === 'Express.js') && isDarkTheme && 'icon-light']" >
-                        <span class="tech-grid__label">{{ tech.name }}</span>
-                    </button>
-                </div>
-            </div>
-        </section>
+        <TechSection />
 
         <ServicesSection />
 
-        <!-- ========== CONTACT ========== -->
         <ContactSection />
 
         <footer class="footer">
@@ -140,17 +63,15 @@
 
 <script setup lang="ts">
 import debounce from 'lodash/debounce';
-import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
 const currentYear = new Date().getFullYear()
 
-const { isDarkTheme, activeTheme, titlesStyle } = useTheme()
+const { activeTheme, titlesStyle } = useTheme()
 const { $gsap: gsap } = useNuxtApp()
 
 const windowWidth = ref(1000)
 const handleResize = debounce(() => { windowWidth.value = window.innerWidth }, 300)
 const phoneBreakpoint = 768
-const actionsList = ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT']
 
 // Hero entrance refs
 const heroH3 = ref(null)
@@ -158,58 +79,6 @@ const heroH1 = ref(null)
 const heroH2 = ref(null)
 const heroBtn = ref(null)
 const scrollIndicator = ref<HTMLDivElement | null>(null)
-
-const techs = [
-    { name: 'TypeScript', icon: '/icons/ts.svg', description: 'Typed superset of JavaScript that catches errors at compile time and improves code maintainability at scale.' },
-    { name: 'JavaScript', icon: '/icons/js.svg', description: 'The language of the web — powering interactivity, logic, and dynamic behavior across every modern browser.' },
-    { name: 'HTML', icon: '/icons/html.svg', description: 'The semantic backbone of every web page — structuring content for accessibility, SEO, and cross-platform reach.' },
-    { name: 'CSS', icon: '/icons/css.svg', description: 'Stylesheet language for visual design — layouts, animations, responsive breakpoints, and theming.' },
-    { name: 'Sass', icon: '/icons/sass.svg', description: 'CSS preprocessor with variables, nesting, mixins, and functions for scalable, maintainable stylesheets.' },
-    { name: 'Figma', icon: '/icons/figma.svg', description: 'Collaborative design tool for prototyping interfaces, creating design systems, and developer handoff.' },
-    { name: 'Tailwind CSS', icon: '/icons/tailwindcss.svg', description: 'Utility-first CSS framework for rapidly building custom designs without leaving your HTML.' },
-    { name: 'Vite', icon: '/icons/vite.svg', description: 'Next-generation frontend tooling for fast development and optimized builds.' },
-    { name: 'Vue.js', icon: '/icons/vuejs.svg', description: 'Progressive JavaScript framework for building modern, reactive user interfaces with a component-driven architecture.' },
-    { name: 'Nuxt', icon: '/icons/nuxtjs.svg', description: 'Full-stack Vue framework with SSR, routing, and a powerful module ecosystem for production-grade web applications.' },
-    { name: 'Node.js', icon: '/icons/nodejs.svg', description: 'Server-side JavaScript runtime powering APIs, tooling, and full-stack applications with a vast package ecosystem.' },
-    { name: 'Express.js', icon: '/icons/express.svg', description: 'Flexible Node.js web application framework providing a robust set of features for web and mobile applications.' },
-    { name: 'Git', icon: '/icons/git.svg', description: 'Distributed version control system for tracking changes, collaborating, and maintaining code history.' },
-    { name: 'GitHub', icon: '/icons/github.svg', description: 'Platform for hosting repositories, code review, CI/CD pipelines, and open-source collaboration.' },
-    { name: 'GitLab', icon: '/icons/gitlab.svg', description: 'DevOps platform combining Git hosting, CI/CD, issue tracking, and container registry in one tool.' },
-    { name: 'Pinia Store', icon: '/icons/pinia.svg', description: 'State management library for VueJS and NuxtJS applications, providing an intuitive API for managing global state.' },
-]
-
-const activeTechIndex = ref(0)
-const activeTech = computed(() => techs[activeTechIndex.value]!)
-
-const techSection = ref<HTMLDivElement | null>(null)
-const techSectionRef = ref(null)
-const techMainIcon = ref(null)
-
-function selectTech(index: number) {
-    if (index === activeTechIndex.value) return
-
-    // Animate the main icon out, swap, animate in
-    const iconEl = techMainIcon.value
-    if (iconEl) {
-        gsap.to(iconEl, {
-            scale: 0.6,
-            rotateY: 90,
-            duration: 0.25,
-            ease: 'power2.in',
-            onComplete: () => {
-                activeTechIndex.value = index
-                nextTick(() => {
-                    gsap.fromTo(techMainIcon.value, 
-                        { scale: 0.6, rotateY: -90 },
-                        { scale: 1, rotateY: 0, duration: 0.35, ease: 'back.out(1.4)' }
-                    )
-                })
-            }
-        })
-    } else {
-        activeTechIndex.value = index
-    }
-}
 
 let balloonTimer: ReturnType<typeof setTimeout> | null = null
 let balloonHideTimeout: ReturnType<typeof setTimeout> | null = null
@@ -265,25 +134,6 @@ function onBalloonLeave() {
     }
 }
 
-// Parallax on tech section
-function onTechParallax(event: MouseEvent) {
-    if (!techSectionRef.value) return
-    const rect = techSection.value!.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 20
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 20
-    gsap.to(techSectionRef.value, {
-        x: x,
-        y: y,
-        duration: 0.6,
-        ease: 'power2.out'
-    })
-}
-
-function resetTechParallax() {
-    if (!techSectionRef.value) return
-    gsap.to(techSectionRef.value, { x: 0, y: 0, duration: 0.6, ease: 'power2.out' })
-}
-
 function scrollToContent() {
     document.querySelector('.section-about')?.scrollIntoView({ behavior: 'smooth' })
 }
@@ -320,47 +170,6 @@ onMounted(() => {
     }
     window.addEventListener('scroll', hideOnScroll, { passive: true })
 
-    // About Section Text Animation
-    const radius = 40;
-    const animations: ReturnType<typeof animate>[] = [];
-    const chars: HTMLElement[] = [];
-    document.querySelectorAll('.about-text').forEach(p => {
-        const { chars: pChars } = text.splitText(p as HTMLElement, { chars: true });
-        chars.push(...pChars);
-    });
-    let pointerX = 0;
-    let pointerY = 0;
-
-    const animateChar = ($c: HTMLElement, i: number) => {
-        const anim = animations[i];
-        if (anim && anim.progress < .5) return;
-        const rect = $c.getBoundingClientRect();
-        const dx = pointerX - (rect.left + (rect.width * .5));
-        const dy = pointerY - (rect.top + (rect.height * .5));
-        const distanceSquared = dx * dx + dy * dy;
-        if (distanceSquared <= radius * radius) {
-            animations[i] = animate($c, {
-                keyframes: [
-                    {
-                        x: utils.random(-radius, radius),
-                        y: utils.random(-radius, radius),
-                        ease: cubicBezier(.17,.67,.41,1.65)
-                    },
-                    {
-                        x: 0, y: 0,
-                        ease: cubicBezier(.71,1.72,.37,1.25), duration: 1000
-                    }
-                ],
-            });
-        }
-    }
-
-    document.addEventListener('pointermove', (e) => {
-        pointerX = e.clientX;
-        pointerY = e.clientY;
-    });
-
-    createTimer({ onUpdate: () => chars.forEach(animateChar) });
 })
 
 onBeforeUnmount(() => {
@@ -620,271 +429,6 @@ onBeforeUnmount(() => {
     0%, 100% { transform: translate(0, 0); }
     50%      { transform: translate(-100px, 75px); }
 }
-
-/* ========== ABOUT SECTION ========== */
-.section-about {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: visible;
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -2rem;
-        left: 30%;
-        z-index: 3;
-        width: 14rem;
-        height: 14rem;
-        background: var(--color-accent);
-        filter: blur(100px);
-        opacity: 0.15;
-        pointer-events: none;
-    }
-
-    &.has-background {
-        background-color: var(--color-base-200);
-    }
-}
-
-.about-marquee {
-    width: 100%;
-    padding: 2.5rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-    border-top: 1px solid color-mix(in srgb, var(--color-base-content), transparent 88%);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-base-content), transparent 88%);
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-}
-
-.about-marquee__track {
-    display: flex;
-    gap: 0rem;
-    width: max-content;
-    animation: marqueeScroll 60s linear infinite;
-}
-
-.about-marquee__word {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    font-size: 2.5rem;
-    font-weight: 800;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 0.05em;
-    color: color-mix(in srgb, var(--color-base-content), transparent 60%);
-    white-space: nowrap;
-    width: max-content;
-    padding-inline: 0.5rem;
-    transition: color 0.3s;
-
-    &:hover {
-        color: var(--color-secondary);
-    }
-}
-.about-marquee__dot {
-    color: var(--color-primary);
-    opacity: 0.6;
-    transform: translate(1px, -1px);
-    text-align: center;
-}
-
-@keyframes marqueeScroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-}
-
-.about-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 2rem;
-    gap: 2rem;
-    max-width: 860px;
-    width: 100%;
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: color-mix(in srgb, var(--color-base-content), transparent 15%);
-
-    &__inner :deep(span) {
-        display: inline-block;
-    }
-
-    & .more-about {
-        transform: translateY(0px);
-    }
-}
-
-.about-text {
-    padding-bottom: 2rem;
-}
-
-.about-title {
-    align-self: center;
-
-    @media (max-width: 768px) {
-        align-self: center;
-    }
-}
-
-/* ========== TECH STACK SECTION ========== */
-.section-tech {
-    background-color: var(--color-base-100);
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 8rem;
-        right: 20%;
-        width: 18rem;
-        height: 18rem;
-        background: var(--color-primary);
-        filter: blur(120px);
-        opacity: 0.15;
-        pointer-events: none;
-        z-index: 0;
-    }
-}
-
-.tech-showcase {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
-    max-width: 800px;
-    width: 100%;
-    z-index: 1;
-}
-
-.tech-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-
-    &__icon-wrapper {
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 1.5rem;
-        background: var(--color-base-200);
-        box-shadow:
-            0 8px 32px rgba(0,0,0,0.50),
-            inset 0 1px 0 color-mix(in srgb, var(--color-base-content), transparent 92%);
-        perspective: 600px;
-
-        &.icon-shadow {
-            box-shadow:
-            0 8px 32px rgba(0,0,0,0.20),
-            inset 0 -32px 28px color-mix(in srgb, black, transparent 98%),
-            inset 0 -12px 10px color-mix(in srgb, black, transparent 95%),
-            inset 0 -8px 5px -3px color-mix(in srgb, black, transparent 92%),
-            inset 0 1px 0 color-mix(in srgb, var(--color-base-content), transparent 92%);
-        }
-
-        @media (max-width: 768px) {
-            width: 90px;
-            height: 90px;
-        }
-    }
-
-    &__icon {
-        width: 72px;
-        height: 72px;
-        object-fit: contain;
-
-        @media (max-width: 768px) {
-            width: 54px;
-            height: 54px;
-        }
-    }
-
-    &__info {
-        text-align: center;
-        max-width: 500px;
-    }
-
-    &__name {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        font-family: 'JetBrains Mono', monospace;
-        color: var(--color-secondary);
-    }
-
-    &__desc {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: color-mix(in srgb, var(--color-base-content), transparent 20%);
-    }
-}
-
-.tech-text-enter-active { animation: techTextIn 0.3s ease-out; }
-.tech-text-leave-active { animation: techTextOut 0.2s ease-in; }
-@keyframes techTextIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes techTextOut {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-12px); }
-}
-
-.tech-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-
-    &__item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 0.75rem;
-        border-radius: var(--radius-box);
-        border: 2px solid transparent;
-        background: var(--color-base-200);
-        cursor: pointer;
-        transition: all 0.25s ease;
-        width: 80px;
-
-        &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-            border-color: var(--color-primary);
-        }
-
-        &--active {
-            border-color: var(--color-primary);
-            background: color-mix(in srgb, var(--color-primary), transparent 85%);
-            box-shadow: 0 0 16px color-mix(in srgb, var(--color-primary), transparent 60%);
-        }
-    }
-
-    &__icon {
-        width: 32px;
-        height: 32px;
-        object-fit: contain;
-    }
-
-    &__label {
-        font-size: 0.65rem;
-        font-family: 'JetBrains Mono', monospace;
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 100%;
-        color: color-mix(in srgb, var(--color-base-content), transparent 30%);
-    }
-}
-
 
 /* ========== FOOTER ========== */
 .footer {

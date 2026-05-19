@@ -119,15 +119,15 @@ $track-offset: 10px;
 
 .side-nav {
     position: fixed;
-    left: 1.75rem;
-    top: 3rem;
+    left: 1rem;
+    top: 2rem;
     height: calc(50vh - 6rem);
     z-index: 200;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    animation: navSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.8s both;
+    animation: navSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 3.5s both;
 
     @media (max-width: 768px) {
         display: none;
@@ -228,7 +228,7 @@ $track-offset: 10px;
             opacity: 1;
         }
 
-        // Passed dots — match the track fill color
+        // match the track fill color
         &.is-passed .side-nav__dot {
             background: color-mix(in srgb, var(--color-secondary), var(--color-base-100) 15%);
         }
@@ -260,7 +260,6 @@ $track-offset: 10px;
         pointer-events: none;
     }
 
-    // Inner dot
     &__dot {
         width: $dot-size;
         height: $dot-size;
@@ -276,7 +275,7 @@ $track-offset: 10px;
         z-index: 2;
     }
 
-    // Label — only on hover
+    // only on hover
     &__label {
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.8rem;

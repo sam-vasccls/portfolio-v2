@@ -4,7 +4,7 @@ export function useScript(cookie: boolean) {
     const SHORT_LINE_TIMER = 200
 
     const script = [
-        { prefix: "~ $", type: "type", text: "git clone https://github.com/sam-dev/portfolio-repo" },
+        { prefix: "~ $", type: "type", text: "git clone https://github.com/sam-vasccls/portfolio-repo" },
         { prefix: ">", type: "loading", text: "cloning", duration: 2000, color: 'text-warning' },
         { prefix: ">", type: "success", text: "✓ Repository ready", duration: LONG_LINE_TIMER, color: 'text-success' },
 
