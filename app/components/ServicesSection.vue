@@ -78,7 +78,7 @@ const services = [
     align-items: flex-start;
     height: 260px;
     min-height: 260px;
-    // max-width: 300px;
+    min-width: 260px;
     gap: 1rem;
     padding: 1.75rem;
     border-radius: var(--radius-box);
@@ -89,11 +89,13 @@ const services = [
     @media (max-width: 900px) {
         gap: 1.5rem;
         width: 100%;
-        padding: 1.75rem  1.75rem 1rem  1.75rem;
+        padding: 1.75rem 1.75rem 1rem  1.75rem;
     }
 
-    @media (max-width: 450px) {
+    @media (max-width: 500px) {
         gap: 1rem;
+        height: auto;
+        padding: 1.75rem;
     }
 
     &--cupcake {

@@ -55,10 +55,13 @@ const techs = [
     { name: 'Nuxt', icon: '/icons/nuxtjs.svg', description: 'Full-stack Vue framework with SSR, routing, and a powerful module ecosystem for production-grade web applications.' },
     { name: 'Node.js', icon: '/icons/nodejs.svg', description: 'Server-side JavaScript runtime powering APIs, tooling, and full-stack applications with a vast package ecosystem.' },
     { name: 'Express.js', icon: '/icons/express.svg', description: 'Flexible Node.js web application framework providing a robust set of features for web and mobile applications.' },
+    { name: 'PostgreSQL', icon: '/icons/postgresql.svg', description: 'Powerful open-source relational database known for reliability, extensibility, and standards compliance.' },
+    { name: 'Drizzle', icon: '/icons/drizzle.svg', description: 'TypeScript ORM offering a lightweight, SQL-like query builder with full type safety and zero runtime overhead.' },
     { name: 'Git', icon: '/icons/git.svg', description: 'Distributed version control system for tracking changes, collaborating, and maintaining code history.' },
     { name: 'GitHub', icon: '/icons/github.svg', description: 'Platform for hosting repositories, code review, CI/CD pipelines, and open-source collaboration.' },
     { name: 'GitLab', icon: '/icons/gitlab.svg', description: 'DevOps platform combining Git hosting, CI/CD, issue tracking, and container registry in one tool.' },
     { name: 'Pinia Store', icon: '/icons/pinia.svg', description: 'State management library for VueJS and NuxtJS applications, providing an intuitive API for managing global state.' },
+    { name: 'VS Code', icon: '/icons/vscode.svg', description: 'Lightweight, extensible code editor with rich language support, debugging, and Git integration.' },
 ]
 
 const activeTechIndex = ref(0)

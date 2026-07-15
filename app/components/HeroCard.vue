@@ -3,9 +3,41 @@
         <div ref="cardWrapper" class="card-wrapper">
             <div class="card card--front">
                 <div class="card__img">
-                    <img :src="img" alt="Self portrait" >
+                    <img :src="img" alt="Self portrait">
                 </div>
-                <div class="card__info">
+                <div v-if="isNarrowMobile" class="card__info--small">
+                    <div>
+                        <label>Name:</label>
+                        <p>Sam Vasconcelos</p>
+                    </div>
+                    <div>
+                        <label>Role:</label>
+                        <p>Frontend Developer</p>
+                    </div>
+                    <div>
+                        <label>Background:</label>
+                        <p>Web software development</p>
+                    </div>
+                    <div>
+                        <label>Strength:</label>
+                        <p>Logic-driven interfaces</p>
+                    </div>
+                    <div>
+                        <label>Currently:</label>
+                        <p>Bridging UI/UX and Logic</p>
+                    </div>
+                    <div>
+                        <label>Fun:</label>
+                        <p>+9000 points</p>
+                    </div>
+                    <div class="card__medals">
+                        <p>Acquired Medals:</p>
+                        <ul>
+                            <li><Icon name="noto:military-medal" size="20" /> 4x Project Lead</li>
+                        </ul>
+                    </div>
+                </div>
+                <div v-else class="card__info">
                     <div><label>Name:</label><div class="card__line"/><p>Sam Vasconcelos</p></div>
                     <div><label>Role:</label><div class="card__line"/><p>Frontend Developer</p></div>
                     <div><label>Background:</label><div class="card__line"/><p>Web software development</p></div>
@@ -15,7 +47,7 @@
                     <div class="card__medals">
                         <p>Acquired Medals:</p>
                         <ul>
-                            <li><Icon name="noto:military-medal" size="20" /> 3x Project Lead</li>
+                            <li><Icon name="noto:military-medal" size="20" /> 4x Project Lead</li>
                         </ul>
                     </div>
                 </div>
@@ -29,10 +61,11 @@
 
 <script setup>
 const img = ref('/avatar/profile.png');
-
 const heroCard = ref(null)
 const cardWrapper = ref(null)
 const enableHoverAnimation = shallowRef(false)
+const { isNarrowMobile } = useScreenSize()
+
 onMounted(() => {
     setTimeout(() => {
         if(cardWrapper.value) {
@@ -97,7 +130,6 @@ function setCardPosition(e) {
     transition: transform 400ms ease-out;
 
     @media (max-width: 355px) {
-        height: 650px;
         transform: scale(0.9);
     }
     
@@ -279,6 +311,7 @@ function setCardPosition(e) {
         transition: transform 400ms ease-out;
         transform: translateZ(2px);
         pointer-events: none;
+        will-change: transform;
 
         // Weak glow around the image (primary color)
         &::after {
@@ -300,7 +333,7 @@ function setCardPosition(e) {
         }
     }
 
-    &__info {
+    &__info{
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -310,7 +343,7 @@ function setCardPosition(e) {
         transition: transform 400ms ease-out;
         pointer-events: none;
 
-        & > div {
+        & div {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -321,6 +354,25 @@ function setCardPosition(e) {
         p {
             width: max-content;
             margin: 0;
+        }
+
+        &--small {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.70rem;
+            transition: transform 400ms ease-out;
+            pointer-events: none;
+        } 
+
+        &--small div {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
         }
     }
 

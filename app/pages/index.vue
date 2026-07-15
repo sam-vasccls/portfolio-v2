@@ -11,8 +11,8 @@
                         Creative Frontend Developer
                         <span>{{'/>'}}</span>
                     </h1>
-                    <div class="w-full text-center py-6 flex justify-center items-center">
-                        <h2 ref="heroH2" class="inline-block text-lg w-[80%] hero-enter">
+                    <div class="w-full text-center xs:py-6 flex justify-center items-center">
+                        <h2 ref="heroH2" class="inline-block text-base md:text-lg w-[80%] hero-enter">
                             Crafting fast, accessible, and beautifully engineered web experiences. <br> From architecture to pixels.
                         </h2>
                     </div>
@@ -332,6 +332,11 @@ onBeforeUnmount(() => {
 
             @media (max-width: 900px) {
                 font-size: 3rem;
+                text-align: center;
+            }
+
+            @media (max-width: 375px) {
+                font-size: 2rem;
                 text-align: center;
             }
         }

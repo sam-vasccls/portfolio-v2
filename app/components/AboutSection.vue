@@ -43,10 +43,13 @@
 import { animate, createTimer, text, utils, cubicBezier } from "animejs";
 
 const { activeTheme, titlesStyle } = useTheme()
+const { isNarrowMobile } = useScreenSize()
 
 const actionsList = ['PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT', 'PROTOTYPE', 'DEVELOP', 'DEPLOY', 'SCALE', 'MAINTAIN', 'HAVE FUN', 'REPEAT']
 
 onMounted(() => {
+    if(isNarrowMobile.value) return
+    
     // About Section Text Animation
     const radius = 40;
     const animations: ReturnType<typeof animate>[] = [];
@@ -199,5 +202,44 @@ onMounted(() => {
     @media (max-width: 768px) {
         align-self: center;
     }
+}
+
+/* ========== INTERESTING SECTION ========== */
+.section-interesting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-base-100);
+    margin-top: 2rem;
+    padding: 4rem 2rem 5rem 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 24px 0 color-mix(in srgb, var(--color-base-content), transparent 92%);
+}
+
+.interesting-content {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.interesting-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: var(--color-secondary);
+}
+
+.interesting-content__inner {
+    width: 100%;
+}
+
+.interesting-text {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: color-mix(in srgb, var(--color-base-content), transparent 10%);
+    margin-bottom: 1.5rem;
 }
 </style>
