@@ -23,7 +23,7 @@
                 </span>
             </div>
     
-            <div v-if="cookie" class="w-full flex flex-col items-center content-center h-12 pt-6" >
+            <div class="w-full flex flex-col items-center content-center h-12 pt-6" >
                 <button
                     class="fade-in-skip-btn app-btn app-btn-soft app-btn-ghost btn-lg app-btn-primary flex items-center"
                     @click="closeLoadingAnimationScreen"
