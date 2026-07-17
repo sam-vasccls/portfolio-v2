@@ -65,9 +65,9 @@
                         </div>
                     </div>
                     <div class="contact-info__socials">
-                        <a href="https://github.com/sam-vasccls" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <!-- <a href="https://github.com/sam-vasccls" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                             <Icon name="tdesign:logo-github-filled" size="28" :class="['icon-dark', isDarkTheme && 'icon-light']" />
-                        </a>
+                        </a> -->
                         <a href="https://www.linkedin.com/in/sam-vasconcelos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <Icon name="ant-design:linkedin-filled" size="28" :class="['icon-dark', isDarkTheme && 'icon-light']" />
                         </a>
